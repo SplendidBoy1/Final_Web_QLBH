@@ -1,17 +1,25 @@
 {
-  "name": "final_website",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "express-hbs": "^2.5.0",
+    "express-session": "^1.18.1",
+    "flash": "^1.1.0",
+    "googleapis": "^144.0.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg-promise": "^11.10.2"
+  },
+  "name": "ia03",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000F\u0000i\u0000n\u0000a\u0000l\u0000_\u0000W\u0000e\u0000b\u0000_\u0000Q\u0000L\u0000B\u0000H\u0000\r\u0000 \u0000",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "lxdat21@clc.fitus.edu.vn",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.21.1",
-    "express-hbs": "^2.5.0",
-    "express-session": "^1.18.1"
-  }
+  "description": ""
 }

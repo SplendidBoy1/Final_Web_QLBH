@@ -6,7 +6,6 @@ const path= require('path')
 const hbs = require('express-hbs')
 const passport = require('passport')
 const url = require('url')
-const initializePassport = require('./middleware/Autheticate.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
 
@@ -99,10 +98,10 @@ app.set('view engine', 'hbs')
 app.set('views', './views')
 
 
-app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.initialize())
+// app.use(passport.session())
 
-initializePassport(passport);
+// initializePassport(passport);
 
 // console.log(initializePassport.name)
 

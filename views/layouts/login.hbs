@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body class="body">
+    <div>
+        <div class="text-center mt-5 mb-4 text-dark fs-3">
+            <b>FitUS</b>
+        </div>
+        
+        <div id="login">
+            <form id="check-login">
+                <div class="row px-4">
+                    <div style= "font-size:15px" class="text mt-4 mb-2">
+                        WELCOME BACK
+                    </div>
+                    <div style= "font-size:22px" class="text mt-1 mb-2">
+                        <b>Sign in to your Account</b>
+                    </div>
+                </div>
+                
+                <div class="row mx-4">
+                    <input type="email" id="email" class="form-control mt-3 mb-1" placeholder="Input your email" name="email" value="<%= locals.email || null %>" required autofocus>
+                    <input type="password" id="password" class="form-control mt-3 mb-3" placeholder="Input your password" name="user_password" required autofocus>
+                    <div id="message" style=" display:none; font-size:14px">
+                        <div class="text-danger">
+                            Invalid email or password
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="checkbox row">
+                    <label>
+                        <input class="mx-4" type="checkbox" value="remember-me">
+                        Remember me
+                    </label>
+                </div> -->
+                <div class="row">
+                    <p>
+                        <a class="link-opacity-100 link-dark mx-4" href ="/forgot_pass" style="font-size: small;">Forgot Password?</a>
+                    </p>
+                </div>
+                <div class="text-center row mx-4">
+                    <button class="btn btn-dark btn-block" id="continue-login" type="submit"> CONTINUE</button>
+                </div>
+                <div class="row mt-5"></div>
+                
+            
+                <div class="text-center mt-5 row">
+                    <p>
+                        New user? <a class="link-opacity-100 link-dark" href ="/register">SIGN UP HERE</a>
+                    </p>
+                </div>
+                
+            </form>
+        </div>
+        
+    </div>
+    <script src="/scripts/login.js"></script>
+</body>
+</html>

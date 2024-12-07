@@ -4,11 +4,14 @@
   "description": "��#\u0000 \u0000F\u0000i\u0000n\u0000a\u0000l\u0000_\u0000W\u0000e\u0000b\u0000_\u0000Q\u0000L\u0000B\u0000H\u0000\r\u0000 \u0000",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "express-hbs": "^2.5.0",
+    "express-session": "^1.18.1"
   }
 }

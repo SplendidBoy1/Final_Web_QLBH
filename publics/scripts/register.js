@@ -10,7 +10,7 @@ let length_input = document.getElementById("length")
 let number_input = document.getElementById("number")
 let message_email = document.getElementById('message_email')
 
-const form = document.getElementById('check-register')
+// const form = document.getElementById('check-register')
 
 // fetch('/register')
 // .then(res => {
@@ -71,8 +71,8 @@ password_input.addEventListener('input',function(){
     }
 
     let confirm_data = password_confirm.value
-    console.log(input_data)
-    console.log(confirm_data)
+    // console.log(input_data)
+    // console.log(confirm_data)
     if (input_data == confirm_data){
         button.removeAttribute("disabled")
         // password_confirm.classList.remove("is-invalid")
@@ -102,8 +102,8 @@ password_input.addEventListener('input',function(){
 password_confirm.addEventListener('input', function(){
     let input_data = password_input.value
     let confirm_data = password_confirm.value
-    console.log(input_data)
-    console.log(confirm_data)
+    // console.log(input_data)
+    // console.log(confirm_data)
     if (input_data == confirm_data && flag){
         button.removeAttribute("disabled")
         // password_confirm.classList.remove("is-invalid")
@@ -116,12 +116,45 @@ password_confirm.addEventListener('input', function(){
     }
 })
 
-// form.addEventListener('submit', function(e) {
-//     e.preventDefault();
+// $(document).ready(function () {
+//     $('#sendData').click(function () {
+//         // Data to send
+//         const dataToSend = {
+//             name: 'John Doe',
+//             age: 30
+//         };
+//     })
+// })
 
-//     fetch('/check-register', {
+$('#check-register').submit( (e) => {
+    e.preventDefault();
+    $.ajax({
+        url: 'http://localhost:21239/register',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({username: $('#username').val(), email : Email.value, password: password_input.value}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                location.replace('/login')
+            }
+            else{
+                message_email.style.display = "block"
+            }
+        },
+        error: (xhr, status, error) => {
+            console.error('Error:', error);
+        }
+    })
+})
+
+// form.addEventListener('submit', async function(e) {
+//     e.preventDefault();
+//     console.log($('#password_1'))
+//     console.log("Adfasdf")
+//     await fetch('/register', {
 //         method: 'POST',
-//         body: JSON.stringify({email: Email.value, password: password_input.value}),
+//         body: JSON.stringify({email: 'e', password: 'e'}),
 //         headers: {
 //             "Content-type": "application/json; charset=UTF-8"
 //         }

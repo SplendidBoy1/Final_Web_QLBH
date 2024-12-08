@@ -25,11 +25,11 @@ module.exports = (schema) => {
             // console.log(type)
             // console.log("qqqqqqqqqq")
             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
+            // console.log(rs.length)
             return rs[0]
         },
         add: async (tbName, entity) => {
-            console.log("QQQQQQ")
-            console.log("adfaasdfas")
+            
             const table = new pgp.helpers.TableName({
                 table: tbName, schema: schema
             });
@@ -39,7 +39,14 @@ module.exports = (schema) => {
             return rs;
         },
         count: async (tbName) => {
+            // console.log("QQQQQQ")
+            // console.log("adfaasdfas")
             const rs = await db.any(`select count(*) from "${schema}"."${tbName}"`)
+            // console.log(rs)
+            return rs[0]
+        },
+        highest_id: async (tbName, type) => {
+            const rs = await db.any(`select * from "${schema}"."${tbName}" order by "${type}" desc limit 1`)
             return rs[0]
         }
     }

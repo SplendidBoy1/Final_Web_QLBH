@@ -20,7 +20,7 @@ const form = document.getElementById('check-register')
 //     console.log('Data:', data)
 //     mes = data
 // })
-
+let flag = false
 
 password_input.onblur = function() {
     message.style.display = "none";
@@ -43,7 +43,7 @@ let numbers = /[0-9]/g;
 
 
 // console.log(button)
-form.addEventListener('input',function(){
+password_input.addEventListener('input',function(){
     let valid_flag = 0
     let input_data = password_input.value
     length = input_data.length
@@ -85,16 +85,18 @@ form.addEventListener('input',function(){
     }
     // console.log(password_input.value)
     // console.log(valid_flag)
-    // if (valid_flag == 2){
-    //     password_input.classList.remove("is-invalid")
-    //     password_input.classList.add("is-valid")
-    //     // button.removeAttribute("disabled")
-    // }
-    // else{
-    //     password_input.classList.remove("is-valid")
-    //     password_input.classList.add("is-invalid")
-    //     // button.setAttribute("disabled", "")
-    // }
+    if (valid_flag == 2){
+        password_input.classList.remove("is-invalid")
+        password_input.classList.add("is-valid")
+        // button.removeAttribute("disabled")
+        flag = true
+    }
+    else{
+        password_input.classList.remove("is-valid")
+        password_input.classList.add("is-invalid")
+        // button.setAttribute("disabled", "")
+        flag = false
+    }
 })
 
 password_confirm.addEventListener('input', function(){
@@ -102,7 +104,7 @@ password_confirm.addEventListener('input', function(){
     let confirm_data = password_confirm.value
     console.log(input_data)
     console.log(confirm_data)
-    if (input_data == confirm_data){
+    if (input_data == confirm_data && flag){
         button.removeAttribute("disabled")
         // password_confirm.classList.remove("is-invalid")
         // password_confirm.classList.add("is-valid")

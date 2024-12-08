@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+body {
+    width: auto;
+    height: auto;
+    font-family: 'Poppins';
+    background-image: url(../images/background.png);
+}
+
+/* form{
+    border-style: dotted;
+    border-color: black;
+} */
+
+#login{
+    max-width: 400px;
+    margin: auto;
+    height: 480px;
+    background-color: #DCE4EF;
+    border-radius: 25px;
+}

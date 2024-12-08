@@ -5,7 +5,7 @@ const controller_1 = require('../controllers/Login.js')
 
 const router = express.Router();
 
-router.get('/', controller_1.Login)
-
+router.get('/login', controller_1.Login_Page)
+router.get('/register', controller_1.Register_Page)
 
 module.exports = router

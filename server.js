@@ -29,7 +29,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //const router_1 = require('./routes/Home_route')
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'publics')))
+// app.use(express.static(path.join(__dirname, '/publics')))
 
 app.use(
     session({

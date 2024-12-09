@@ -128,6 +128,7 @@ password_confirm.addEventListener('input', function(){
 
 $('#check-register').submit( (e) => {
     e.preventDefault();
+    console.log("LLLLLL")
     $.ajax({
         url: 'http://localhost:21239/register',
         method: 'POST',

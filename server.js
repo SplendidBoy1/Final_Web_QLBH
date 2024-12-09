@@ -6,6 +6,7 @@ const path= require('path')
 const hbs = require('express-hbs')
 const passport = require('passport')
 const url = require('url')
+const initializePassport = require('./middleware/Autheticate.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
 
@@ -30,14 +31,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 //const router_1 = require('./routes/Home_route')
 
 app.use(express.static(path.join(__dirname, 'publics')))
-// app.use(express.static(path.join(__dirname, '/publics')))
 
 app.use(
     session({
       secret: '21127239', 
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: false },
+      resave: false, 
+      saveUninitialized: true, 
+      cookie: { maxAge: 1000*10 },
     })
   );
 
@@ -99,12 +99,12 @@ app.set('view engine', 'hbs')
 app.set('views', './views')
 
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
-// initializePassport(passport);
+initializePassport(passport);
 
-// console.log(initializePassport.name)
+console.log(initializePassport.name)
 
 
 

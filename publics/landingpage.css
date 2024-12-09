@@ -1,0 +1,227 @@
+.body_light{
+    background-color: white;
+    /* max-width: 100%; */
+}
+
+.body_dark{
+    background-color: #1c2220;
+    /* max-width: 100%; */
+}
+
+.bg-light-red{
+    background-color: #f8d3d3;
+    border-width: 1px;
+    border-color: #f8d3d3;
+    border-style: solid;
+}
+
+.bg-dark-red{
+    background-color: #7e0000;
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+.movie_light_info{
+    font-size: 30px;
+    color: #5c2922;
+}
+
+.movie_dark_info{
+    font-size: 30px;
+    color: #f8d3d3;
+}
+
+.color_header_light_text{
+    color: #5c2922;
+}
+
+.color_header_dark_text{
+    color: #f8d3d3;
+}
+
+.navbar_light_color{
+    background-color: #dde9fc;
+    border-width: 1px;
+    border-color: #dde9fc;
+    border-style: solid;
+}
+
+.navbar_dark_color{
+    background-color: #002582;
+    border-width: 1px;
+    border-color: #83a1eb;
+    border-style: solid;
+}
+
+#app{
+    max-width: 1200px;
+    margin: auto;
+}
+
+.light_search:focus{
+    color: black;
+}
+
+.dark_search:focus{
+    color: white;
+}
+
+.light_search::placeholder{
+    color:black;
+}
+
+.dark_search::placeholder{
+    color:#b3b5b9
+}
+
+body{
+    background-color: white;
+}
+
+.show_popular{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.show_top{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.show_search{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    margin: 0;
+    row-gap: 30px;
+}
+
+.size_box{
+    width: 90px;
+}
+
+.card-body{
+    height: 200px;
+}
+
+.slide_animation_right {
+    position: static;
+    animation-name: slide_right;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes slide_right {
+    from {opacity:1; margin-left: 0;}
+    to {opacity:0.2; margin-left: -100px;}
+  }
+
+  .slide_animation_left {
+    position: static;
+    animation-name: slide_left;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes slide_left {
+    from {opacity:1; margin-left: 0;}
+    to {opacity:0.2; margin-left: 100px;}
+  }
+
+
+.animation_hover {
+    animation-name: hover;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+div:has(> img.animation_hover) b{
+    background: rgba(0, 0, 0, 0.5);
+    animation-name: hover_b;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    text-align: center;
+}
+
+@keyframes hover_b {
+    from {
+        position: relative;
+        width: 100%;
+    }
+    to {
+        position: relative;
+        z-index: 2;
+        width: 110%;
+        /* position: absolute; */
+    }
+  }
+
+@keyframes hover {
+    from {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        margin: auto;
+    }
+    to {
+        position: relative;
+        z-index: 2;
+        width: 110%;
+        height: 280px;
+        /* position: absolute; */
+    }
+  }
+/* #slide {
+    position: absolute;
+    right: -100px; 
+    width: 100px;
+    height: 100px;
+    background: blue;
+    transition: 1s; 
+}
+
+.wrapper:hover #slide {
+    transition: 1s;
+    right: 0;
+} */
+
+.image_detail{
+    width: 200px;
+    border-radius: 20px;
+    /* border-style: solid; */
+}
+
+table{
+    border: 1px solid black;
+    padding-inline: 10px;
+    /* margin-top: 100px;
+    margin-bottom: 100px; */
+}
+
+td{
+    padding-inline: 10px;
+}
+
+.layout_table{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.slide_in{
+    position: relative;
+    animation: slide-in 1s forwards;
+}
+
+@keyframes slide-in {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+

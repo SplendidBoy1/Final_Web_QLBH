@@ -30,18 +30,22 @@ module.exports = (schema) => {
             return rs[0]
         },
         add: async (tbName, entity) => {
-            console.log("QQQQQQ")
-            console.log("adfaasdfas")
+            //console.log("QQQQQQ")
+            //console.log("adfaasdfas")
             const table = new pgp.helpers.TableName({
                 table: tbName, schema: schema
             });
             let sql = pgp.helpers.insert(entity, null, table);
             const rs = await db.one(sql + `RETURNING *`);
-            console.log(rs)
+            //console.log(rs)
             return rs;
         },
         count: async (tbName) => {
             const rs = await db.any(`select count(*) from "${schema}"."${tbName}"`)
+            return rs[0]
+        },
+        highest_id: async (tbName, type) => {
+            const rs = await db.any(`select * from "${schema}"."${tbName}" order by "${type}" desc limit 1`)
             return rs[0]
         }
     }

@@ -2,7 +2,7 @@
 
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
-const db = require('../models/db.js')('public')
+const db = require('../models/user_db.js')('public')
 
 
 function initialize(passport){

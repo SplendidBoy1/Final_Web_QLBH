@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 // const passport = require('passport')
 
 // const users = require('../models/db.js');
-const db= require('../models/db.js')('public');
+const db= require('../models/user_db.js')('public');
 // import db_md from '../models/db.js'
 
 
@@ -26,25 +26,35 @@ const df = {
         //
         try{
             //console.log(req.body)
+            const exist_user = await db.findEmail('Users', 'Email', req.body.email)
+            console.log(exist_user)
+            console.log("IDDDD")
+            console.log("zzz")
+            if (exist_user !== undefined) {
+                console.log("The email is already existed in the database!")
+                res.json({flag: false}) 
+                return 
+            } 
             const hassedPass = await bcrypt.hash(req.body.password, 10);
-            const id = await db.count('Users')
-            console.log(id)
-            console.log(parseInt(id.count)+1)
-            console.log(req.body.username)
+            const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
             //console.log(Date.now().)
             const user = {
-                ID: parseInt(id.count)+1,
-                Username: 'user' + (parseInt(id.count)+1),
-                Email: req.body.username,
+                ID: parseInt(id.ID)+1,
+                Username: req.body.username,
+                Email: req.body.email,
                 Password: hassedPass,
                 Name: "Dat",
                 Permission: 1,
-                DOB: null
             }
-            console.log(user)
+            //console.log(user)
             db.add('Users', user)
-            console.log("qqqqqqq")
-            res.redirect('/')
+            //console.log("qqqqqqq")
+            res.json({flag: true})
+            return
         }      
         catch{
             res.redirect('/register')

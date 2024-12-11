@@ -21,7 +21,7 @@ router.post('/login',(req,res, next) => {
     console.log(req.body)
     next()
 }, passport.authenticate('local', {
-    successRedirect: '/main_admin',
+    successRedirect: '/',
     failureRedirect: '/login',
 }), controller_1.Login)
 
@@ -29,7 +29,7 @@ router.get('/register', controller_1.Register)
 router.post('/register', controller_1.Register_account)
 // router.get('/get_infor', controller_1.render_information);
 
-router.get('/main_admin', controller_1.Main_admin)
+router.get('/', controller_1.Main_admin)
 
 // router.get('/edit_page', controller_1.to_edit_page);
 

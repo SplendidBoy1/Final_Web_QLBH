@@ -17,11 +17,11 @@ function initialize(passport){
         const user = await db.findEmail('Users', 'Email', email)
         console.log(user)
         if (user === undefined){
-            return done(null, false, {message: 'No user'})
+            return done(null, false, {message: 'User\'s email have not found'})
         }
         try {
             if (await bcrypt.compare(password, user.Password)){
-                console.log("True pass")
+                //console.log("True pass")
                 return done(null, user)
             }
             else {

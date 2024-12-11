@@ -13,7 +13,9 @@ const df = {
         //console.log(req.body)
         // console.log("!!!!!!!!!!!!!!!!!1111111111111111111111111")
         // console.log(req.session)
-        res.render('layouts/login')
+        // console.log("Remder qqq")
+        // console.log(req.flash("error"))
+        res.render('layouts/login', {message: req.flash("error")[0]})
     },
     Register(req, res){
         //console.log(req.body)

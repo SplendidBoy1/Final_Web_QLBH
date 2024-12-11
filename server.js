@@ -12,6 +12,7 @@ const bodyParser = require('body-parser')
 
 const Login = require('./routes/Login_route.js')
 
+const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -41,6 +42,8 @@ app.use(
     })
   );
 
+
+app.use(flash());
 
 // app.use(session({
 //     secret: 'hellohello',
@@ -104,7 +107,7 @@ app.use(passport.session())
 
 initializePassport(passport);
 
-console.log(initializePassport.name)
+// console.log(initializePassport.name)
 
 
 

@@ -3,6 +3,8 @@
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
 const db = require('../models/user_db.js')('public')
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 
 function initialize(passport){
@@ -34,9 +36,109 @@ function initialize(passport){
     }
     //authenticateUSer()
     console.log('qq')
-    const strategy = new LocalStrategy(authenticateUser)
+    const local_strategy = new LocalStrategy(authenticateUser)
+    const google_strategy = new GoogleStrategy({
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        callbackURL: "http://localhost:21239/oauth2callback_google",
+        scope: ['profile', 'email']
+      },
+      async function(accessToken, refreshToken, profile, done) {
+        console.log("access")
+        console.log(accessToken)
+        console.log("refress")
+        console.log(refreshToken)
+        console.log("pro")
+        console.log(profile)
+        console.log(profile.emails[0].value)
+        const user = await db.findEmail('Users', 'Email', profile.emails[0].value)
+        console.log("USERRR")
+        console.log(user)
+        if (user === undefined){
+            const hassedPass = await bcrypt.hash(profile.id, 10);
+            const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            const new_user = {
+                ID: parseInt(id.ID)+1,
+                Username: profile.displayName,
+                Email: profile.emails[0].value,
+                Password: hassedPass,
+                Name: "Dat",
+                Permission: 1,
+            }
+            //console.log(user)
+            db.add('Users', new_user)
+            return done(null, new_user)
+        }
+        try {
+            console.log("qqq")
+            return done(null, user)
+        }
+        catch(e){
+            return done(e);
+        }
+        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        //   return cb(err, user);
+        // });
+      }
+    )
     // console.log(strategy)
-    passport.use(strategy)
+    const facebook_strategy = new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "http://localhost:21239/oauth2callback_facebook",
+        profileFields: ['id', 'displayName', 'photos', 'email']
+      },
+      async function(accessToken, refreshToken, profile, done) {
+        console.log("access")
+        console.log(accessToken)
+        console.log("refress")
+        console.log(refreshToken)
+        console.log("pro")
+        console.log(profile)
+        console.log(profile.emails[0].value)
+        const user = await db.findEmail('Users', 'Email', profile.emails[0].value)
+        console.log("USERRR")
+        console.log(user)
+        if (user === undefined){
+            const hassedPass = await bcrypt.hash(profile.id, 10);
+            const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            const new_user = {
+                ID: parseInt(id.ID)+1,
+                Username: profile.displayName,
+                Email: profile.emails[0].value,
+                Password: hassedPass,
+                Name: "Dat",
+                Permission: 1,
+            }
+            //console.log(user)
+            db.add('Users', new_user)
+            return done(null, new_user)
+        }
+        try {
+            console.log("qqq")
+            return done(null, user)
+        }
+        catch(e){
+            return done(e);
+        }
+        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        //   return cb(err, user);
+        // });
+      }
+    );
+    passport.use(local_strategy)
+    passport.use(google_strategy)
+    passport.use(facebook_strategy)
     passport.serializeUser((user, done) => {
         console.log('seri')
         console.log(user)

@@ -63,7 +63,7 @@ const df = {
             res.redirect('/register')
         }
     },
-    Main_admin(req, res){
+    Check_route(req, res){
         if (req.isAuthenticated()){
             return res.render('layouts/main_admin')
         }

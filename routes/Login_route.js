@@ -29,7 +29,7 @@ router.get('/register', controller_1.Register)
 router.post('/register', controller_1.Register_account)
 // router.get('/get_infor', controller_1.render_information);
 
-router.get('/', controller_1.Main_admin)
+router.get('/', controller_1.Check_route)
 
 router.get('/auth_google', passport.authenticate('google', { scope: ['profile', 'email'] }));
   
@@ -39,6 +39,8 @@ router.get('/auth_facebook',
     passport.authenticate('facebook', {scope: ['email']}));
 
 router.get('/oauth2callback_facebook', passport.authenticate('facebook', {successRedirect:'/', failureRedirect: '/login', failureFlash: true}));
+
+
 
 // router.get('/edit_page', controller_1.to_edit_page);
 

@@ -63,8 +63,7 @@ const df = {
             res.redirect('/register')
         }
     },
-    async Main_admin(req, res){
-        
+    async Check_route(req, res){
         if (req.isAuthenticated()){
             const user = await req.user;
             // console.log(user)

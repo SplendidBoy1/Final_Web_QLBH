@@ -33,7 +33,7 @@ router.get('/landing', controller_1.Render_landing)
 
 router.get('/admin', controller_1.Render_admin)
 
-router.get('/', controller_1.Main_admin)
+router.get('/', controller_1.Check_route)
 
 router.get('/auth_google', passport.authenticate('google', { scope: ['profile', 'email'] }));
   

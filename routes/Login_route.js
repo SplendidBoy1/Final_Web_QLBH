@@ -44,7 +44,7 @@ router.get('/auth_facebook',
 
 router.get('/oauth2callback_facebook', passport.authenticate('facebook', {successRedirect:'/', failureRedirect: '/login', failureFlash: true}));
 
-
+router.get('/logout', controller_1.Logout)
 
 // router.get('/edit_page', controller_1.to_edit_page);
 

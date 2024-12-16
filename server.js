@@ -11,7 +11,7 @@ const initializePassport = require('./middleware/Autheticate.js')
 const bodyParser = require('body-parser')
 
 const Login = require('./routes/Login_route.js')
-
+const Admin = require('./routes/Admin_route.js')
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -114,7 +114,7 @@ initializePassport(passport);
 //app.use(router_1)
 
 app.use(Login);
-
+app.use(Admin)
 // app.route('/', (req, res) => {
 //   //console.log("asdfasdf")
 //   res.render('login')

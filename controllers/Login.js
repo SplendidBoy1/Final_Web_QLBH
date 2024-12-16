@@ -1,16 +1,18 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 // const passport = require('passport')
 
 // const users = require('../models/db.js');
-const db= require('../models/user_db.js')('public');
+const scheme = process.env.DBSCHEMA
+
+const db= require('../models/user_db.js')(scheme);
 // import db_md from '../models/db.js'
 
 
 
 const df = {
     Login(req, res){
-        console.log()
+        //console.log()
         //console.log(req.body)
         // console.log("!!!!!!!!!!!!!!!!!1111111111111111111111111")
         // console.log(req.session)
@@ -30,14 +32,14 @@ const df = {
         try{
             //console.log(req.body)
             const exist_user = await db.findEmail('Users', 'Email', req.body.email)
-            console.log(exist_user)
-            console.log("IDDDD")
-            console.log("zzz")
+            // console.log(exist_user)
+            // console.log("IDDDD")
+            // console.log("zzz")
             if (exist_user !== undefined) {
                 console.log("The email is already existed in the database!")
                 res.json({flag: false}) 
                 return 
-            } 
+            }
             const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await db.highest_id("Users", "ID")
             // console.log(id)
@@ -68,7 +70,7 @@ const df = {
             const user = await req.user;
             // console.log(user)
             const role_join_user = await db.find_join("Users", "Role", "Role_ID", "ID", user.Role_ID)
-            console.log(role_join_user)
+            //console.log(role_join_user)
             if (role_join_user === undefined)return res.redirect('/login')
             if (role_join_user.Role_user === "Admin"){
 
@@ -86,10 +88,19 @@ const df = {
         if (!req.isAuthenticated())return res.redirect('/login')
         return res.render('layouts/landing')
     },
-    Render_admin(req, res){
+    async Render_admin(req, res){
         if (!req.isAuthenticated())return res.redirect('/login')
-        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq")
-        res.render('layouts/main_admin')
+        //console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq")
+        const users = await db.find_all("Users", "ID", "ASC")
+        //console.log(users)
+        return res.render('layouts/main_admin', {users : {count : users.length, data: users}})
+    },
+    Logout(req, res){
+        req.logout((err) => {
+            if (err){return next(err)}
+            res.redirect('/')
+        })
+
     }
 }
 module.exports = df

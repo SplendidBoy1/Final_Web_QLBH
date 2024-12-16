@@ -47,7 +47,12 @@ module.exports = (schema) => {
         highest_id: async (tbName, type) => {
             const rs = await db.any(`select * from "${schema}"."${tbName}" order by "${type}" desc limit 1`)
             return rs[0]
-        }
+        },
+        find_join: async(tbName_1, tbName_2, join_1, join_2, where) => {
+            console.log("qqqqqqqqqq")
+            const rs = await db.any(`SELECT * FROM "${schema}"."${tbName_1}" INNER JOIN "${schema}"."${tbName_2}" ON "${schema}"."${tbName_1}"."${join_1}" = "${schema}"."${tbName_2}"."${join_2}" WHERE "${join_1}" = ${where}`);
+            return rs[0]
+        },
     }
 }
 

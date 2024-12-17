@@ -1,8 +1,33 @@
 let curr_id_user = 0
 
+let curr_id_cat = 0
+
+let curr_id_pro = 0
+
 function update_user(id){
     console.log(id)
     curr_id_user = id 
+}
+
+function delete_user(id){
+    console.log(id)
+    curr_id_user = id 
+}
+
+function update_Cat(cat_id){
+    curr_id_cat = cat_id
+}
+
+function delete_Cat(cat_id){
+    curr_id_cat = cat_id
+}
+
+function update_Pro(pro_id){
+    curr_id_pro = pro_id
+}
+
+function delete_Pro(pro_id){
+    curr_id_pro = pro_id
 }
 
 function validEmail(email){
@@ -51,10 +76,7 @@ function validPermision(role){
     }
 }
 
-function delete_user(id){
-    console.log(id)
-    curr_id_user = id 
-}
+
 
 function search_user() {
     
@@ -79,12 +101,12 @@ function search_user() {
                         <td>
                             <div class="row">
                                 <div class="col-4">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editForm" onclick="update(${user.ID})">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editForm" onclick="update_user(${user.ID})">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </div>
                                 <div class="col-4">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteForm" onclick="delete_user(${user.ID})">
                                         <i class="fa-solid fa-x"></i>
                                     </button>
                                 </div>
@@ -203,3 +225,222 @@ $('.add_user_form').submit((e) => {
     })
 
 })
+
+
+$('#updateCatForm').submit( (e) => {
+    e.preventDefault();
+    console.log("LLLLLL")
+    const id = curr_id_cat
+    const CatName = $('#updateCatname').val()
+
+    $.ajax({
+        url: 'http://localhost:21239/update_cat',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: id, name: CatName}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                alert("Update success")
+                location.reload()
+            }
+            else{
+                alert("Error")
+            }
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+})
+
+function search_cat(){
+    console.log($('#search_category').val())
+    $.ajax({
+        url: 'http://localhost:21239/search_cat',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({search_cat: $('#search_category').val()}),
+        success: (res) => {
+            console.log(res)
+            $("#main_Cattable tbody").html("")
+            console.log("!111")
+            res.forEach((cat) => {
+                $("#main_Cattable tbody").append(`
+                    <tr id="user_{{this.ID}}">
+                        <th scope="row">${cat.CatID}</th>
+                        <td>${cat.CatName}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCatForm" onclick="update_Cat(${cat.catID})">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCatForm" onclick="delete_Cat(${cat.catID})">
+                                        <i class="fa-solid fa-x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `)
+            });
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+}
+
+
+$('.add_cat_form').submit((e) => {
+    e.preventDefault();
+    console.log("LLLLLL")
+    // const email = $('#addEmail').val()
+    const catname = $('#addCatName').val()
+    $.ajax({
+        url: 'http://localhost:21239/add_category',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({catname: catname}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                alert("Add category success")
+                location.reload()
+            }
+            else{
+                alert("Add category failed")
+            }
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+
+})
+
+$('#updateProForm').submit((e) => {
+    e.preventDefault()
+    const id = curr_id_pro
+    const ProName = $('#updateProname').val()
+    const Des = $('#updateDesPro').val()
+    const Img = $('#updateImg').val()
+    const Price = $('#updatePrice').val()
+    const CatID = $('#updateCatID').val()
+    const UserID = $('#updateUserID').val()
+
+
+    $.ajax({
+        url: 'http://localhost:21239/update_pro',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: id, name: ProName, des: Des, img: Img, price: Price, catid: CatID, userid: UserID}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                alert("Update success")
+                location.reload()
+            }
+            else{
+                alert("Update Error or ID is not valid")
+            }
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+
+})
+
+function search_pro(){
+    console.log($('#search_product').val())
+    $.ajax({
+        url: 'http://localhost:21239/search_pro',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({search_pro: $('#search_product').val()}),
+        success: (res) => {
+            console.log(res)
+            $("#main_Protable tbody").html("")
+            // console.log("!111")
+            res.forEach((pro) => {
+                $("#main_Protable tbody").append(`
+                    <tr id="user_${pro.ProID}">
+                        <th scope="row">${pro.ProID}</th>
+                        <td>
+                            <img src="/images/products/${pro.Image_Src}" alt="product" style="max-height:100%; max-width:100%;">
+                            <div class="text-center">${pro.Image_Src}</div>
+                        </td>
+                        <td>${pro.ProName}</td>
+                        <td>${pro.FullDes}</td>
+                        <td>${pro.Price}</td>
+                        <td>${pro.CatID}</td>
+                        <td>${pro.ID_User}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editProForm" onclick="update_Pro(${pro.ProID})">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProForm" onclick="delete_Pro(${pro.ProID})">
+                                        <i class="fa-solid fa-x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `)
+            });
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+}
+
+// $('.add_pro_form').submit((e) => {
+//     console.log('qq')
+//     e.preventDefault();
+//     // console.log("LLLLLL")
+//     // const id = curr_id_pro
+//     // const ProName = $('#addProname').val()
+//     // const Des = $('#addDesPro').val()
+//     // const Img = $('#addImg').val()
+//     // console.log(Img)
+//     // const Price = $('#addPrice').val()
+//     // const CatID = $('#addCatID').val()
+//     // const UserID = $('#addUserID').val()
+//     // // console.log($(this))
+//     // const formData = new FormData()
+//     // formData.append('id', id)
+//     // formData.append('name', ProName)
+//     // formData.append('des', Des)
+//     // formData.append('file', Img)
+//     // formData.append('price', Price)
+//     // formData.append('catid', CatID)
+//     // formData.append('userid', UserID)
+
+//     // $.ajax({
+//     //     url: 'http://localhost:21239/add_pro',
+//     //     method:'POST',
+//     //     success: (res) => {
+//     //         console.log(res)
+//     //         if (res.flag == true){
+//     //             alert("Add category success")
+//     //             location.reload()
+//     //         }
+//     //         else{
+//     //             alert("Add category failed")
+//     //         }
+//     //     },
+//     //     error: (xhr, status, error) => {
+//     //         alert(error)
+//     //     }
+//     // })
+
+// })

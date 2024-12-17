@@ -31,13 +31,20 @@ module.exports = (schema) => {
         add: async (tbName, entity) => {
             //console.log("QQQQQQ")
             //console.log("adfaasdfas")
-            const table = new pgp.helpers.TableName({
-                table: tbName, schema: schema
-            });
-            let sql = pgp.helpers.insert(entity, null, table);
-            const rs = await db.one(sql + `RETURNING *`);
-            //console.log(rs)
-            return rs;
+            console.log(tbName)
+            console.log(entity)
+            try{
+                const table = new pgp.helpers.TableName({
+                    table: tbName, schema: schema
+                });
+                let sql = pgp.helpers.insert(entity, null, table);
+                const rs = await db.one(sql + `RETURNING *`);
+                //console.log(rs)
+                return rs;
+            }
+            catch{
+                return ''
+            }
         },
         count: async (tbName) => {
             const rs = await db.any(`select count(*) from "${schema}"."${tbName}"`)
@@ -80,6 +87,40 @@ module.exports = (schema) => {
             const rs = await db.any(`DELETE FROM "${schema}"."${tbName}" WHERE "${type}" = '${value}';`)
             console.log("Stringssss")
             console.log(rs)
+            return rs
+        },
+        update_Cat: async(tbName, entity) => {
+            const rs = await db.any(`UPDATE "${schema}"."${tbName}" SET "CatName" = '${entity.name}' WHERE "CatID" = ${entity.id};`)
+                return rs;
+        },
+        search_name_cat: async(tbName, type, name_search) => {
+            console.log(tbName)
+            console.log(type)
+            console.log(name_search)
+            name_search = name_search.toLowerCase();
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where lower("${type}") like '%${name_search}%'`)
+            // console.log("Stringssss")
+            console.log(rs)
+            // console.log("qqqqqqqqqq")
+            // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
+            return rs
+        },
+        update_pro: async(tbName, entity) => {
+            const rs = await db.any(`UPDATE "${schema}"."${tbName}"
+                SET "ProName" = '${entity.name}', "FullDes" = '${entity.des}', "Image_Src" = '${entity.img}', "Price" = ${entity.price}, "CatID" = ${entity.catid}, "ID_User" = ${entity.userid}
+                WHERE "ProID" = ${entity.id};`)
+                return rs;
+        },
+        search_pro: async(tbName, type, name_search) => {
+            console.log(tbName)
+            console.log(type)
+            console.log(name_search)
+            name_search = name_search.toLowerCase();
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where lower("${type}") like '%${name_search}%'`)
+            // console.log("Stringssss")
+            console.log(rs)
+            // console.log("qqqqqqqqqq")
+            // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
             return rs
         }
     }

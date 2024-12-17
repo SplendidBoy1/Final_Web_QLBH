@@ -151,6 +151,224 @@ const df = {
         catch{
             res.redirect('/admin')
         }
-    }
+    },
+    async Update_Cat(req, res){
+        try{
+            const rs = user_db.update_Cat("Categories", req.body)
+            // const hassedPass = await bcrypt.hash(req.body.password, 10);
+            // const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            // const user = {
+            //     ID: parseInt(id.ID)+1,
+            //     Username: req.body.username,
+            //     Email: req.body.email,
+            //     Password: hassedPass,
+            //     Name: "Dat",
+            //     Permission: 1,
+            // }
+            //console.log(user)
+            // db.add('Users', user)
+            //console.log("qqqqqqq")
+            res.json({flag: true})
+            return
+        }      
+        catch{
+            res.json({flag: false})
+            res.redirect('/admin')
+        }
+    },
+    async Search_Cat(req, res){
+        try{
+            console.log(req.body)
+            const exist_cat = await user_db.search_name_cat("Categories", "CatName", req.body.search_cat)
+            console.log(exist_cat)
+            // console.log("IDDDD")
+            // console.log("zzz")
+            if (exist_cat !== undefined) {
+                // console.log("QQQQExs")
+                // console.log(exist_user)
+                res.json(exist_cat)
+                return
+            }
+            else{
+                res.status(404).send(new Error("Error"))
+                return 
+            }
+            // const hassedPass = await bcrypt.hash(req.body.password, 10);
+            // const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            // const user = {
+            //     ID: parseInt(id.ID)+1,
+            //     Username: req.body.username,
+            //     Email: req.body.email,
+            //     Password: hassedPass,
+            //     Name: "Dat",
+            //     Permission: 1,
+            // }
+            //console.log(user)
+            // db.add('Users', user)
+            //console.log("qqqqqqq")
+            // res.json({flag: true})
+            return
+        }      
+        catch{
+            console.log("WTF")
+            res.redirect('/admin')
+        }
+    },
+    async Add_Cat(req, res){
+        try{
+            console.log("BODYYYYYYYYY")
+            console.log(req.body)
+            // console.log(req.body.email)
+            const exist_cat = await user_db.findEmail('Categories', 'CatName', req.body.catname)
+            console.log(exist_cat)
+            // console.log("IDDDD")
+            // console.log("zzz")
+            if (exist_cat !== undefined) {
+                console.log("The category is already existed in the database!")
+                res.json({flag: false}) 
+                return 
+            }
+            // const hassedPass = await bcrypt.hash(req.body.password, 10);
+            const id = await user_db.highest_id("Categories", "CatID")
+            console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            const cat = {
+                CatID: parseInt(id.CatID)+1,
+                CatName: req.body.catname,
+            }
+            //console.log(user)
+            user_db.add('Categories', cat)
+            //console.log("qqqqqqq")
+            res.json({flag: true})
+            return
+        }      
+        catch{
+            res.redirect('/admin')
+        }
+    },
+    async Update_Pro(req, res){
+        try{
+            console.log("Update user")
+            console.log("Bodyyy")
+            console.log(req.body)
+            // console.log(exist_user)
+            // console.log("IDDDD")
+            // console.log("zzz")
+            const rs = user_db.update_pro("Products", req.body)
+            // const hassedPass = await bcrypt.hash(req.body.password, 10);
+            // const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            // const user = {
+            //     ID: parseInt(id.ID)+1,
+            //     Username: req.body.username,
+            //     Email: req.body.email,
+            //     Password: hassedPass,
+            //     Name: "Dat",
+            //     Permission: 1,
+            // }
+            //console.log(user)
+            // db.add('Users', user)
+            //console.log("qqqqqqq")
+            res.json({flag: true})
+            return
+        }      
+        catch{
+            console.log("WTF")
+            res.json({flag: false})
+            res.redirect('/admin')
+        }
+    },
+    async Search_Pro(req, res){
+        try{
+            console.log(req.body)
+            const exist_pro = await user_db.search_pro("Products", "ProName", req.body.search_pro)
+            console.log(exist_pro)
+            // console.log("IDDDD")
+            // console.log("zzz")
+            if (exist_pro !== undefined) {
+                // console.log("QQQQExs")
+                // console.log(exist_user)
+                res.json(exist_pro)
+                return
+            }
+            else{
+                res.status(404).send(new Error("Error"))
+                return 
+            }
+            // const hassedPass = await bcrypt.hash(req.body.password, 10);
+            // const id = await db.highest_id("Users", "ID")
+            // console.log(id)
+            // console.log(parseInt(id.count)+1)
+            // console.log("resss")
+            // console.log(req.body)
+            //console.log(Date.now().)
+            // const user = {
+            //     ID: parseInt(id.ID)+1,
+            //     Username: req.body.username,
+            //     Email: req.body.email,
+            //     Password: hassedPass,
+            //     Name: "Dat",
+            //     Permission: 1,
+            // }
+            //console.log(user)
+            // db.add('Users', user)
+            //console.log("qqqqqqq")
+            // res.json({flag: true})
+        }      
+        catch{
+            res.status(404).send(new Error("Error"))
+            res.redirect('/admin')
+        }
+    },
+    async Add_Pro(req, res){
+        // console.log("BODYYYYYYYYY")
+        // console.log(req.body)
+        try{
+            // console.log(req.file.filename)
+            // console.log("BODYYYYYYYYY")
+            // console.log(req.body)
+            const id = await user_db.highest_id("Products", "ProID")
+            const pro = {
+                ProID: parseInt(id.ProID)+1,
+                ProName: req.body.productname,
+                FullDes: req.body.describe,
+                Image_Src: req.file.filename,
+                Price: parseInt(req.body.price),
+                CatID: parseInt(req.body.catID),
+                ID_User: parseInt(req.body.userID),
+            }
+            const rs = user_db.add('Products', pro)
+            // console.log(req.cookies)
+            if(rs === '')throw 'Error'
+            // console.log("qqqqqqq")
+            
+            req.session['success'] = true
+            res.redirect('/admin')
+            return
+        }      
+        catch{
+            req.session['success'] = false
+            res.redirect('/admin')
+            // res.redirect('/admin')
+            return
+        }
+    },
 }
 module.exports = df

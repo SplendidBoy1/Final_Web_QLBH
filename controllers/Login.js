@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 // const users = require('../models/db.js');
 const scheme = process.env.DBSCHEMA
 
-const db= require('../models/user_db.js')(scheme);
+const user_db= require('../models/user_db.js')(scheme);
 // import db_md from '../models/db.js'
 
 
@@ -31,7 +31,7 @@ const df = {
         //
         try{
             //console.log(req.body)
-            const exist_user = await db.findEmail('Users', 'Email', req.body.email)
+            const exist_user = await user_db.findEmail('Users', 'Email', req.body.email)
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
@@ -41,7 +41,7 @@ const df = {
                 return 
             }
             const hassedPass = await bcrypt.hash(req.body.password, 10);
-            const id = await db.highest_id("Users", "ID")
+            const id = await user_db.highest_id("Users", "ID")
             // console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
@@ -56,7 +56,7 @@ const df = {
                 Permission: 1,
             }
             //console.log(user)
-            db.add('Users', user)
+            user_db.add('Users', user)
             //console.log("qqqqqqq")
             res.json({flag: true})
             return
@@ -69,7 +69,7 @@ const df = {
         if (req.isAuthenticated()){
             const user = await req.user;
             // console.log(user)
-            const role_join_user = await db.find_join("Users", "Role", "Role_ID", "ID", user.Role_ID)
+            const role_join_user = await user_db.find_join("Users", "Role", "Role_ID", "ID", user.Role_ID)
             //console.log(role_join_user)
             if (role_join_user === undefined)return res.redirect('/login')
             if (role_join_user.Role_user === "Admin"){
@@ -91,9 +91,17 @@ const df = {
     async Render_admin(req, res){
         if (!req.isAuthenticated())return res.redirect('/login')
         //console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq")
-        const users = await db.find_all("Users", "ID", "ASC")
+        const users = await user_db.find_all("Users", "ID", "ASC")
+        const categories = await user_db.find_all("Categories", "CatID", "ASC")
+        const products = await user_db.find_all("Products", "ProID", "ASC")
+        // console.log(req.session['success'])
+        if (req.session['success'] === undefined){
+            req.session['success'] = true
+        }
+        const flag_alert = req.session['success'] && true;
+        // console.log(flag_alert)
         //console.log(users)
-        return res.render('layouts/main_admin', {users : {count : users.length, data: users}})
+        return res.render('layouts/main_admin', {users : {count : users.length, data: users}, categories: {count: categories.length, data: categories}, products: {count: products.length, data: products}, flag_alert: flag_alert})
     },
     Logout(req, res){
         req.logout((err) => {

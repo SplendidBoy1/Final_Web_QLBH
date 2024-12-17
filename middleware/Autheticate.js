@@ -8,16 +8,16 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 
 
 function initialize(passport){
-    console.log("asdfasdfqqqqqq")
+    // console.log("asdfasdfqqqqqq")
     // console.log(passport)
     // console.log(getUserByEmail)
     const authenticateUser =  async (email, password, done) => {
         // console.log("asdfasdf")
-        console.log(email)
+        // console.log(email)
         //console.log("asdfasdf")
-        console.log(password)
+        // console.log(password)
         const user = await db.findEmail('Users', 'Email', email)
-        console.log(user)
+        // console.log(user)
         if (user === undefined){
             return done(null, false, {message: 'User\'s email have not found'})
         }
@@ -35,7 +35,7 @@ function initialize(passport){
         }
     }
     //authenticateUSer()
-    console.log('qq')
+    // console.log('qq')
     const local_strategy = new LocalStrategy(authenticateUser)
     const google_strategy = new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
@@ -44,16 +44,16 @@ function initialize(passport){
         scope: ['profile', 'email']
       },
       async function(accessToken, refreshToken, profile, done) {
-        console.log("access")
-        console.log(accessToken)
-        console.log("refress")
-        console.log(refreshToken)
-        console.log("pro")
-        console.log(profile)
-        console.log(profile.emails[0].value)
+        // console.log("access")
+        // console.log(accessToken)
+        // console.log("refress")
+        // console.log(refreshToken)
+        // console.log("pro")
+        // console.log(profile)
+        // console.log(profile.emails[0].value)
         const user = await db.findEmail('Users', 'Email', profile.emails[0].value)
-        console.log("USERRR")
-        console.log(user)
+        // console.log("USERRR")
+        // console.log(user)
         if (user === undefined){
             const hassedPass = await bcrypt.hash(profile.id, 10);
             const id = await db.highest_id("Users", "ID")
@@ -75,7 +75,7 @@ function initialize(passport){
             return done(null, new_user)
         }
         try {
-            console.log("qqq")
+            // console.log("qqq")
             return done(null, user)
         }
         catch(e){
@@ -140,16 +140,16 @@ function initialize(passport){
     passport.use(google_strategy)
     passport.use(facebook_strategy)
     passport.serializeUser((user, done) => {
-        console.log('seri')
-        console.log(user)
+        // console.log('seri')
+        // console.log(user)
         done(null, user.Email)})
-    console.log('qq')
+    //console.log('qq')
     passport.deserializeUser((email, done) => {
-        console.log('seriaa')
-        console.log(email)
+        // console.log('seriaa')
+        // console.log(email)
         const user_copy = db.findEmail('Users', 'Email', email)
         done(null, user_copy);})
-    console.log('qq')
+    //console.log('qq')
 }
 
 

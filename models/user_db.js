@@ -18,13 +18,12 @@ const users = []
 
 module.exports = (schema) => {
     return {
-        findEmail: async (tbName, type, username) => {
-            console.log(type)
-            console.log(username)
-            const table = new pgp.helpers.TableName({table: tbName, schema: this.scheme})
-            const rs = await db.any(`select * from "${schema}"."${tbName}" where "${type}" = '${username}'`)
+        findEmail: async (tbName, type, data) => {
+            //const table = new pgp.helpers.TableName({table: tbName, schema: this.scheme})
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where "${type}" = '${data}'`)
             //const rs = await db.oneOrNone(`select * from $1 where ${type}='$2'`, [table, username])
-            // console.log(type)
+            // console.log("qqqqqqqqqq")
+            // console.log(rs)
             // console.log("qqqqqqqqqq")
             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
             return rs[0]
@@ -32,13 +31,20 @@ module.exports = (schema) => {
         add: async (tbName, entity) => {
             //console.log("QQQQQQ")
             //console.log("adfaasdfas")
-            const table = new pgp.helpers.TableName({
-                table: tbName, schema: schema
-            });
-            let sql = pgp.helpers.insert(entity, null, table);
-            const rs = await db.one(sql + `RETURNING *`);
-            //console.log(rs)
-            return rs;
+            console.log(tbName)
+            console.log(entity)
+            try{
+                const table = new pgp.helpers.TableName({
+                    table: tbName, schema: schema
+                });
+                let sql = pgp.helpers.insert(entity, null, table);
+                const rs = await db.one(sql + `RETURNING *`);
+                //console.log(rs)
+                return rs;
+            }
+            catch{
+                return ''
+            }
         },
         count: async (tbName) => {
             const rs = await db.any(`select count(*) from "${schema}"."${tbName}"`)
@@ -47,172 +53,75 @@ module.exports = (schema) => {
         highest_id: async (tbName, type) => {
             const rs = await db.any(`select * from "${schema}"."${tbName}" order by "${type}" desc limit 1`)
             return rs[0]
+        },
+        find_join: async(tbName_1, tbName_2, join_1, join_2, where) => {
+            //console.log("qqqqqqqqqq")
+            const rs = await db.any(`SELECT * FROM "${schema}"."${tbName_1}" INNER JOIN "${schema}"."${tbName_2}" ON "${schema}"."${tbName_1}"."${join_1}" = "${schema}"."${tbName_2}"."${join_2}" WHERE "${join_1}" = ${where}`);
+            return rs[0]
+        },
+        find_all: async(tbName, type_for_order, order) => {
+            // console.log("qqqqqqqqqq")
+            const rs = await db.any(`SELECT * FROM "${schema}"."${tbName}" ORDER BY "${type_for_order}" ${order}`);
+            return rs;
+        },
+        update_User: async(tbName, entity) => {
+            const rs = await db.any(`UPDATE "${schema}"."${tbName}"
+            SET "Username" = '${entity.username}', "Name" = '${entity.name}', "Email" = '${entity.email}', "Permission" = ${entity.permision}, "Role_ID" = ${entity.role}
+            WHERE "ID" = ${entity.id};`)
+            return rs;
+        },
+        search_string_users: async(tbName, type, string_search) => {
+            console.log(string_search)
+            // console.log("Stringssss")
+            string_search = string_search.toLowerCase();
+            const rs = await db.any(`select "ID", "Email", "Name", "Username", "Permission", "Role_ID" from "${schema}"."${tbName}" where lower("${type}") like '%${string_search}%'`)
+            // console.log("Stringssss")
+            console.log(rs)
+            // console.log("qqqqqqqqqq")
+            // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
+            return rs
+        },
+        delete: async(tbName, type, value) => {
+            console.log(tbName, type, value)
+
+            const rs = await db.any(`DELETE FROM "${schema}"."${tbName}" WHERE "${type}" = '${value}';`)
+            console.log("Stringssss")
+            console.log(rs)
+            return rs
+        },
+        update_Cat: async(tbName, entity) => {
+            const rs = await db.any(`UPDATE "${schema}"."${tbName}" SET "CatName" = '${entity.name}' WHERE "CatID" = ${entity.id};`)
+                return rs;
+        },
+        search_name_cat: async(tbName, type, name_search) => {
+            console.log(tbName)
+            console.log(type)
+            console.log(name_search)
+            name_search = name_search.toLowerCase();
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where lower("${type}") like '%${name_search}%'`)
+            // console.log("Stringssss")
+            console.log(rs)
+            // console.log("qqqqqqqqqq")
+            // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
+            return rs
+        },
+        update_pro: async(tbName, entity) => {
+            const rs = await db.any(`UPDATE "${schema}"."${tbName}"
+                SET "ProName" = '${entity.name}', "FullDes" = '${entity.des}', "Image_Src" = '${entity.img}', "Price" = ${entity.price}, "CatID" = ${entity.catid}, "ID_User" = ${entity.userid}
+                WHERE "ProID" = ${entity.id};`)
+                return rs;
+        },
+        search_pro: async(tbName, type, name_search) => {
+            console.log(tbName)
+            console.log(type)
+            console.log(name_search)
+            name_search = name_search.toLowerCase();
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where lower("${type}") like '%${name_search}%'`)
+            // console.log("Stringssss")
+            console.log(rs)
+            // console.log("qqqqqqqqqq")
+            // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
+            return rs
         }
     }
 }
-
-//console.log(cn)
-
-// const db = pgp(cn);
-
-// export function sbSQL(schema){
-//     this.schema = schema
-//     return {
-//         all: async tbName => {
-//             const rs = await db.any(`SELECT * FROM "${this.schema}"."${tbName}"`);
-//             return rs;
-//         },
-//         one: async (tbName, idField, idValue) => {
-//             const table = new pgp.helpers.TableName({
-//                 table: tbName, schema: this.schema
-//             });
-//             const rs = await db.oneOrNone(`SELECT * FORM $1 WHERE "${idField}"=$2`, [table, idValue]);
-//             return rs;
-//         },
-//         add: async (tbName, entity) => {
-//             const table = new pgp.helpers.TableName({
-//                 table: tbName, schema: this.schema
-//             });
-//             let sql = pgp.helpers.insert(entity, null, table);
-//             const rs = await db.one(sql + `RETURNING *`);
-//             return rs;
-//         },
-//         top_num: async(tbName, number_top, type) => {
-//             const rs = await db.any(`SELECT * FROM "${this.schema}"."${tbName}" WHERE ${type} IS NOT NULL ORDER BY ${type} DESC LIMIT ${number_top}`);
-//             return rs
-//         },
-//         top_num_join: async(tbName_1, tbName_2, number_top, primary_key, type) => {
-//             console.log(type)
-//             console.log("qqqqqqqqqq")
-//             const rs = await db.any(`SELECT * FROM "${this.schema}"."${tbName_1}" INNER JOIN "${this.schema}"."${tbName_2}" ON "${this.schema}"."${tbName_2}".${primary_key} = "${this.schema}"."${tbName_1}".${primary_key} WHERE "${this.schema}"."${tbName_2}".${type} IS NOT NULL ORDER BY "${this.schema}"."${tbName_2}".${type} ASC LIMIT ${number_top}`);
-//             return rs
-//         },
-//         count: async tbName => {
-//             // console.log(type)
-//             // console.log("qqqqqqqqqq")
-//             const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-//             return rs
-//         },
-//         delete_and_update_rank:  async (tbName, data_match, type, compare_data) => {
-//             const get_var = await db.any(`SELECT * from "${this.schema}"."${tbName}" where "${this.schema}"."${tbName}".${type} = '${data_match}'`)
-//             console.log(get_var)
-//             const rs = await db.any(`delete from "${this.schema}"."${tbName}" where "${this.schema}"."${tbName}".${type} = '${data_match}'`)
-//             const rss = await db.any(`UPDATE "${this.schema}"."${tbName}" SET movie_rank = movie_rank - 1 WHERE "${this.schema}"."${tbName}".movie_rank > ${get_var[0].movie_rank};`)
-//             // console.log(type)
-//             // console.log("qqqqqqqqqq")
-//             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-//             return rs
-//         }
-//     }
-// }
-
-// const df = function(schema) {
-//     //this.schema = schema;
-//     return {
-//         async addOne(tbName){
-
-//         }
-//         ,
-//         async all(tbName){
-//             const rs = await db.any(`SELECT * FROM "${schema}"."${tbName}"`);
-//             return rs;
-//         },
-//         // async one(tbName, idField, idValue){
-//         //     const table = new pgp.helpers.TableName({
-//         //         table: tbName, schema: this.schema
-//         //     });
-//         //     const rs = await db.oneOrNone(`SELECT * FORM $1 WHERE "${idField}"=$2`, [table, idValue]);
-//         //     return rs;
-//         // },
-//         async add(tbName, entity){
-//             const table = new pgp.helpers.TableName({
-//                 table: tbName, schema: schema
-//             });
-//             let sql = pgp.helpers.insert(entity, null, table);
-//             const rs = await db.one(sql + `RETURNING *`);
-//             return rs;
-//         },
-//         async top_num(tbName, number_top, type){
-//             const rs = await db.any(`SELECT * FROM "${schema}"."${tbName}" WHERE ${type} IS NOT NULL ORDER BY ${type} DESC LIMIT ${number_top}`);
-//             return rs
-//         },
-//         async top_num_join(tbName_1, tbName_2, number_top, primary_key, type){
-//             console.log(type)
-//             console.log("qqqqqqqqqq")
-//             const rs = await db.any(`SELECT * FROM "${schema}"."${tbName_1}" INNER JOIN "${schema}"."${tbName_2}" ON "${schema}"."${tbName_2}".${primary_key} = "${schema}"."${tbName_1}".${primary_key} WHERE "${schema}"."${tbName_2}".${type} IS NOT NULL ORDER BY "${schema}"."${tbName_2}".${type} ASC LIMIT ${number_top}`);
-//             return rs
-//         },
-//         async  count (tbName){
-//             // console.log(type)
-//             // console.log("qqqqqqqqqq")
-//             const rs = await db.any(`SELECT count(*) from "${schema}"."${tbName}"`)
-//             return rs
-//         },
-//         async delete_and_update_rank(tbName, data_match, type, compare_data){
-//             const get_var = await db.any(`SELECT * from "${schema}"."${tbName}" where "${schema}"."${tbName}".${type} = '${data_match}'`)
-//             console.log(get_var)
-//             const rs = await db.any(`delete from "${schema}"."${tbName}" where "${schema}"."${tbName}".${type} = '${data_match}'`)
-//             const rss = await db.any(`UPDATE "${schema}"."${tbName}" SET movie_rank = movie_rank - 1 WHERE "${schema}"."${tbName}".movie_rank > ${get_var[0].movie_rank};`)
-//             // console.log(type)
-//             // console.log("qqqqqqqqqq")
-//             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-//             return rs
-//         },
-//         async search_string(tbName, string_search, type){
-//             // console.log(get_var)
-//             string_search = string_search.toLowerCase();
-//             const rs = await db.any(`select * from "${schema}"."${tbName}" where lower(${type}) like '%${string_search}%'`)
-//             // console.log(type)
-//             // console.log("qqqqqqqqqq")
-//             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-//             return rs
-//         },
-//     }
-    
-    // one: async (tbName, idField, idValue) => {
-    //     const table = new pgp.helpers.TableName({
-    //         table: tbName, schema: this.schema
-    //     });
-    //     const rs = await db.oneOrNone(`SELECT * FORM $1 WHERE "${idField}"=$2`, [table, idValue]);
-    //     return rs;
-    // },
-    // add: async (tbName, entity) => {
-    //     const table = new pgp.helpers.TableName({
-    //         table: tbName, schema: this.schema
-    //     });
-    //     let sql = pgp.helpers.insert(entity, null, table);
-    //     const rs = await db.one(sql + `RETURNING *`);
-    //     return rs;
-    // },
-    // top_num: async(tbName, number_top, type) => {
-    //     const rs = await db.any(`SELECT * FROM "${this.schema}"."${tbName}" WHERE ${type} IS NOT NULL ORDER BY ${type} DESC LIMIT ${number_top}`);
-    //     return rs
-    // },
-    // top_num_join: async(tbName_1, tbName_2, number_top, primary_key, type) => {
-    //     console.log(type)
-    //     console.log("qqqqqqqqqq")
-    //     const rs = await db.any(`SELECT * FROM "${this.schema}"."${tbName_1}" INNER JOIN "${this.schema}"."${tbName_2}" ON "${this.schema}"."${tbName_2}".${primary_key} = "${this.schema}"."${tbName_1}".${primary_key} WHERE "${this.schema}"."${tbName_2}".${type} IS NOT NULL ORDER BY "${this.schema}"."${tbName_2}".${type} ASC LIMIT ${number_top}`);
-    //     return rs
-    // },
-    // count: async tbName => {
-    //     // console.log(type)
-    //     // console.log("qqqqqqqqqq")
-    //     const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-    //     return rs
-    // },
-    // delete_and_update_rank:  async (tbName, data_match, type, compare_data) => {
-    //     const get_var = await db.any(`SELECT * from "${this.schema}"."${tbName}" where "${this.schema}"."${tbName}".${type} = '${data_match}'`)
-    //     console.log(get_var)
-    //     const rs = await db.any(`delete from "${this.schema}"."${tbName}" where "${this.schema}"."${tbName}".${type} = '${data_match}'`)
-    //     const rss = await db.any(`UPDATE "${this.schema}"."${tbName}" SET movie_rank = movie_rank - 1 WHERE "${this.schema}"."${tbName}".movie_rank > ${get_var[0].movie_rank};`)
-    //     // console.log(type)
-    //     // console.log("qqqqqqqqqq")
-    //     // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
-    //     return rs
-    // }
-//}
-
-//let dbaaa = df(process.env.DBSCHEMA)
-
-// export default df
-//console.log(dbaaa)

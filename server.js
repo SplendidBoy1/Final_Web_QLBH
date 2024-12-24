@@ -12,6 +12,9 @@ const bodyParser = require('body-parser')
 
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
+
+//Profile
+const Profile = require('./routes/Profile_route.js');
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -119,6 +122,9 @@ app.use(Admin)
 //   //console.log("asdfasdf")
 //   res.render('login')
 // })
+
+//Profile
+app.use(Profile);
 
 app.all('*', (req, res) => {
   

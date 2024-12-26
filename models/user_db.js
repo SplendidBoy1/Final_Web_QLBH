@@ -174,5 +174,12 @@ module.exports = (schema) => {
             const query = `SELECT * FROM "${schema}"."Categories" ORDER BY "CatName" ASC`;
             return await db.any(query);
         },
+        find_product_by_id: async (productId) => {
+            const query = `
+                SELECT * FROM "${schema}"."Products"
+                WHERE "ProID" = $1
+            `;
+            return await db.oneOrNone(query, [productId]);
+        },
     }
 }

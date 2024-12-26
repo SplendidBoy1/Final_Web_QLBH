@@ -35,6 +35,23 @@ const ProductController = {
             res.status(500).send('Internal Server Error');
         }
     },
+
+    async renderProductDetails(req, res) {
+        const { id } = req.params;
+
+        try {
+            const product = await user_db.find_product_by_id(id);
+
+            if (!product) {
+                return res.status(404).send('Product not found');
+            }
+
+            res.render('layouts/product_details', { product });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+    },
 };
 
 module.exports = ProductController;

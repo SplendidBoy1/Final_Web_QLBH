@@ -181,5 +181,33 @@ module.exports = (schema) => {
             `;
             return await db.oneOrNone(query, [productId]);
         },
+
+        //for products detail
+        find_products_detail: async (filter = {}, search = "", page = 1, limit = 10) => {
+            const offset = (page - 1) * limit;
+            const whereClause = [];
+        
+            if (filter.category) {
+                whereClause.push(`"CatID" = ${filter.category}`);
+            }
+        
+            const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";
+            const query = `
+                SELECT * FROM "${schema}"."Products"
+                ${whereString}
+                ORDER BY "ProID" ASC
+                LIMIT ${limit} OFFSET ${offset}
+            `;
+            return await db.any(query);
+        },
+        
+        find_category_by_id: async (categoryId) => {
+            const query = `
+                SELECT * FROM "${schema}"."Categories"
+                WHERE "CatID" = $1
+            `;
+            return await db.oneOrNone(query, [categoryId]);
+        },
+        
     }
 }

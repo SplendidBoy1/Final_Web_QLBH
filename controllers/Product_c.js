@@ -4,7 +4,7 @@ const user_db = require('../models/user_db.js')(process.env.DBSCHEMA);
 const ProductController = {
     async renderProductPage(req, res) {
         const { category, search, page = 1 } = req.query;
-        const limit = 6; // 9 products per page
+        const limit = 6; // 6 products per page
         const maxPageLinks = 6; // Maximum number of page links to display
 
         try {
@@ -53,13 +53,21 @@ const ProductController = {
         const { id } = req.params;
 
         try {
+            // Fetch the main product
             const product = await user_db.find_product_by_id(id);
+            if (!product) return res.status(404).send('Product not found');
 
-            if (!product) {
-                return res.status(404).send('Product not found');
-            }
+            // Fetch related products (e.g., from the same category)
+            const relatedProducts = await user_db.find_products_detail({ category: product.CatID }, '', 1, 4);
 
-            res.render('layouts/product_details', { product });
+            // Fetch category name
+            const category = await user_db.find_category_by_id(product.CatID);
+            product.categoryName = category.CatName;
+
+            res.render('layouts/product_details', { 
+                product, 
+                relatedProducts 
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');

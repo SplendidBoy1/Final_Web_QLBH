@@ -4,27 +4,40 @@ const user_db = require('../models/user_db.js')(process.env.DBSCHEMA);
 const ProductController = {
     async renderProductPage(req, res) {
         const { category, search, page = 1 } = req.query;
-        const limit = 10; // Number of products per page
+        const limit = 6; // 9 products per page
+        const maxPageLinks = 6; // Maximum number of page links to display
 
         try {
-            // Fetch products and total count
-            const { products, total } = await user_db.find_products(
-                { category },
-                search,
-                page,
-                limit
-            );
-
-            // Fetch all categories for the dropdown
+            const { products, total } = await user_db.find_products({ category }, search, page, limit);
             const categories = await user_db.find_all_categories();
 
             const totalPages = Math.ceil(total / limit);
-            const pagination = Array.from({ length: totalPages }, (_, i) => i + 1);
+            const currentPage = parseInt(page);
+
+            // Pagination logic
+            let pagination = [];
+            const halfMax = Math.floor(maxPageLinks / 2);
+
+            // Generate page numbers with ellipses
+            const startPage = Math.max(1, currentPage - halfMax);
+            const endPage = Math.min(totalPages, currentPage + halfMax);
+
+            for (let i = startPage; i <= endPage; i++) {
+                pagination.push(i);
+            }
+
+            // Add ellipses and first/last pages
+            if (startPage > 1) {
+                pagination.unshift(1, '...');
+            }
+            if (endPage < totalPages) {
+                pagination.push('...', totalPages);
+            }
 
             res.render('layouts/product_list', {
                 products,
                 categories,
-                currentPage: parseInt(page),
+                currentPage,
                 totalPages,
                 pagination,
                 category,

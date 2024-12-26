@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header }}
+    <title>Product Listing</title>
+    <link rel="stylesheet" href="/styles/main_page.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form class="row mb-4" method="GET" action="/products">
+            <div class="col-md-4">
+                <select class="form-control" name="category">
+                    <option value="">All Categories</option>
+                    {{#each categories}}
+                    <option value="{{CatID}}" {{#ifCond ../category CatID}}selected{{/ifCond}}>{{CatName}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="search" value="{{search}}" placeholder="Search products...">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+        
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/images/products/{{Image_Src}}" class="card-img-top" alt="{{ProName}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ProName}}</h5>
+                        <p class="card-text">{{FullDes}}</p>
+                        <p class="card-text text-primary">${{Price}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                {{#each pagination}}
+                <li class="page-item {{#ifCond ../currentPage this}}active{{/ifCond}}">
+                    <a class="page-link" href="?category={{../category}}&search={{../search}}&page={{this}}">{{this}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

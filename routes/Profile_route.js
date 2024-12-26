@@ -1,5 +1,5 @@
 const express = require('express');
-const clientProfileController = require('../controllers/ClientProfile_c.js');
+const clientProfileController = require('../controllers/Client_c.js');
 const router = express.Router();
 
 router.get('/profile', clientProfileController.renderProfile);

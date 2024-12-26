@@ -138,5 +138,41 @@ module.exports = (schema) => {
             `);
             return rs;
         },
+
+        //For product listing
+        find_products: async (filter = {}, search = "", page = 1, limit = 10) => {
+            const offset = (page - 1) * limit;
+            const whereClause = [];
+        
+            if (filter.category) {
+                whereClause.push(`"CatID" = ${filter.category}`);
+            }
+        
+            if (search) {
+                const searchLower = search.toLowerCase();
+                whereClause.push(`LOWER("ProName") LIKE '%${searchLower}%' OR LOWER("FullDes") LIKE '%${searchLower}%'`);
+            }
+        
+            const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";
+            const query = `
+                SELECT * FROM "${schema}"."Products"
+                ${whereString}
+                ORDER BY "ProID" ASC
+                LIMIT ${limit} OFFSET ${offset}
+            `;
+            const products = await db.any(query);
+        
+            const countQuery = `
+                SELECT COUNT(*) FROM "${schema}"."Products"
+                ${whereString}
+            `;
+            const total = await db.one(countQuery);
+        
+            return { products, total: total.count };
+        },
+        find_all_categories: async () => {
+            const query = `SELECT * FROM "${schema}"."Categories" ORDER BY "CatName" ASC`;
+            return await db.any(query);
+        },
     }
 }

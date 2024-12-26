@@ -15,6 +15,9 @@ const Admin = require('./routes/Admin_route.js')
 
 //Profile
 const Profile = require('./routes/Profile_route.js');
+//Products listing
+const ProductRoute = require('./routes/Product_route.js');
+
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -112,7 +115,10 @@ initializePassport(passport);
 
 // console.log(initializePassport.name)
 
-
+//Helper function to handle the selected state in the dropdown.
+hbs.registerHelper('ifCond', function (v1, v2, options) {
+  return v1 === v2 ? options.fn(this) : options.inverse(this);
+});
 
 //app.use(router_1)
 
@@ -125,6 +131,9 @@ app.use(Admin)
 
 //Profile
 app.use(Profile);
+
+//Products
+app.use(ProductRoute);
 
 app.all('*', (req, res) => {
   

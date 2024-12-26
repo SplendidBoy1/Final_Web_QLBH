@@ -15,7 +15,7 @@ const router = express.Router();
 
 // initializePassport()
 
-
+router.get('/', controller_1.Landing);
 router.get('/login', controller_1.Login)
 router.post('/login',(req,res, next) => {
     console.log(req.body)

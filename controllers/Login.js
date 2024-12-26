@@ -67,6 +67,10 @@ const df = {
             return res.render('layouts/main_admin')
         }
         return res.redirect('/login')
+    },
+
+    Landing: (req, res) => {
+        return res.render('layouts/landing');
     }
 }
 module.exports = df

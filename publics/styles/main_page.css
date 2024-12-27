@@ -203,3 +203,26 @@ body {
     color: #052B40;
     font-weight: 600;
 }
+
+.category-container {    
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    gap: 100px;
+    row-gap: 10px;
+}
+
+.category-item {
+    width: 10%;    
+    text-align: center;  
+}
+
+.category-item img {
+    width: 100%;
+    background-color: #FFFFFF;  
+    text-align: center;  
+}

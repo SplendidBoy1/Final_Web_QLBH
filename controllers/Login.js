@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 
 // const users = require('../models/db.js');
 const db= require('../models/user_db.js')('public');
+const category_db = require('../models/categories_db.js');
 // import db_md from '../models/db.js'
 
 
@@ -69,8 +70,9 @@ const df = {
         return res.redirect('/login')
     },
 
-    Landing: (req, res) => {
-        return res.render('layouts/landing');
+    Landing: async (req, res) => {
+        const categories = await category_db.all();        
+        return res.render('layouts/landing', {categories: categories});
     }
 }
 module.exports = df

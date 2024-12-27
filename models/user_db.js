@@ -145,12 +145,12 @@ module.exports = (schema) => {
             const whereClause = [];
         
             if (filter.category) {
-                whereClause.push(`"CatID" = ${filter.category}`);
+                whereClause.push(`"Category" = ${filter.category}`);
             }
         
             if (search) {
                 const searchLower = search.toLowerCase();
-                whereClause.push(`LOWER("ProName") LIKE '%${searchLower}%' OR LOWER("FullDes") LIKE '%${searchLower}%'`);
+                whereClause.push(`LOWER("ProName") LIKE '%${searchLower}%' OR LOWER("Description") LIKE '%${searchLower}%'`);
             }
         
             const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";
@@ -188,7 +188,7 @@ module.exports = (schema) => {
             const whereClause = [];
         
             if (filter.category) {
-                whereClause.push(`"CatID" = ${filter.category}`);
+                whereClause.push(`"Category" = ${filter.category}`);
             }
         
             const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";

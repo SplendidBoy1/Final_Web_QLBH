@@ -204,8 +204,12 @@ body {
     font-weight: 600;
 }
 
-.category-container {    
+.category {
     background-color: antiquewhite;
+    padding: 20px;
+}
+
+.category-container {        
     display: flex;
     flex-direction: row;    
     flex-wrap: wrap;
@@ -225,4 +229,28 @@ body {
     width: 100%;
     background-color: #FFFFFF;  
     text-align: center;  
+}
+
+.suggestion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    padding: 10px;
+    gap: 10px;
+    row-gap: 10px;
+    flex-wrap: wrap;
+}
+
+.suggestion .card {
+    width: 30%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px rgba(5, 43, 64, 0.1);
+}
+
+.suggestion-title {
+    text-align: center;
+    padding: 20px;
 }

@@ -3,8 +3,9 @@ const bcrypt = require('bcrypt')
 // const passport = require('passport')
 
 // const users = require('../models/db.js');
-const db= require('../models/user_db.js')('public');
+const db = require('../models/user_db.js')('public');
 const category_db = require('../models/categories_db.js');
+const product_db = require('../models/product_db.js');
 // import db_md from '../models/db.js'
 
 
@@ -72,7 +73,9 @@ const df = {
 
     Landing: async (req, res) => {
         const categories = await category_db.all();        
-        return res.render('layouts/landing', {categories: categories});
+        const top30Rating = await product_db.top30Rating();
+
+        return res.render('layouts/landing', {categories: categories, products: top30Rating});
     }
 }
 module.exports = df

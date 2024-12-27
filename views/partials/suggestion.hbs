@@ -1,0 +1,12 @@
+<h1 class="suggestion-title">Suggestion</h1>
+<div class="suggestion">
+    {{#each products}}
+        <div class="card">
+            <img src="{{this.Image1}}" alt="{{this.ProductName}}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{this.Title}}</h5>
+                <p class="card-text">{{this.Price}}{{this.Currency}}</p>
+            </div>
+        </div>
+    {{/each}}
+</div>

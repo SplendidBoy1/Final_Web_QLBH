@@ -1,8 +1,11 @@
-<div class="category-container">
-    {{#each categories}}
-        <div class="category-item">
-            <img src="images/categories/{{this.CatName}}.png" alt="{{this.CatName}}" class="rounded-circle">
-            <p>{{this.CatName}}</p>
-        </div>
-    {{/each}}
+<div class="category">
+    <h1 style="padding: 20px;">Categories</h1>
+    <div class="category-container">    
+        {{#each categories}}
+            <div class="category-item">
+                <img src="images/categories/{{this.CatName}}.png" alt="{{this.CatName}}" class="rounded-circle">
+                <p>{{this.CatName}}</p>
+            </div>
+        {{/each}}
+    </div>
 </div>

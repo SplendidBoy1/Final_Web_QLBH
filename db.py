@@ -1,7 +1,6 @@
 # Import list of products
 
 import psycopg2
-import re
 from json import loads
 
 conn = psycopg2.connect(

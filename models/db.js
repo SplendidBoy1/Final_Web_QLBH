@@ -26,6 +26,12 @@ module.exports = schema => {
             return rs;
         },
 
+        someByOrder: async (tableName, order_field, order, limit) => {
+            const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });
+            const rs = await db.any(`SELECT * FROM $1 ORDER BY "${order_field}" ${order} LIMIT $2`, [table, limit]);
+            return rs;
+        },
+
         one: async (tableName, field, value) => {
             const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });
             const rs = await db.oneOrNone(`SELECT * FROM $1 WHERE "${field}"=$2`, [table, value]);            

@@ -13,6 +13,7 @@ const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
 const Landing = require('./routes/Landing_route.js');
+const Order = require('./routes/Order_route.js');
 
 //Profile
 const Profile = require('./routes/Profile_route.js');
@@ -144,6 +145,9 @@ app.use((err, req, res, next) => {
 });
 //Profile
 app.use(Profile);
+
+// Orders
+app.use(Order);
 
 app.all('*', (req, res) => {
   

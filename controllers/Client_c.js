@@ -1,11 +1,18 @@
 const bcrypt = require('bcrypt');
 const user_db = require('../models/user_db.js')(process.env.DBSCHEMA);
-
+const order_db = require('../models/order_db.js');
 const clientProfileController = {
     async renderProfile(req, res) {
         if (!req.isAuthenticated()) return res.redirect('/login');
         const user = await req.user;
-        res.render('layouts/client_profile', { user });
+
+        var orders = await order_db.allByUser('Orders', user.ID);
+        
+        orders.forEach(order => {
+            order.OrderDate = new Date(order.OrderDate).toLocaleDateString();
+        });
+        
+        res.render('layouts/client_profile', { user, orders });
     },
 
     async updateProfile(req, res) {

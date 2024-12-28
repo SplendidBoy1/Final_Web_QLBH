@@ -56,7 +56,7 @@ module.exports = schema => {
         },
 
         allBy: async (tableName, field, value) => {
-            const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });
+            const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });                        
             const rs = await db.any(`SELECT * FROM $1 WHERE "${field}"=$2`, [table, value]);
             return rs;
         },

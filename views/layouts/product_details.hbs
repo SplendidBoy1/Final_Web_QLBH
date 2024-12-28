@@ -17,7 +17,7 @@
             <div class="row m-0">
                 <!-- Left-side Image Section -->
                 <div class="col-lg-4 left-side-product-box pb-3">
-                    <img src="{{product.Image1}}" class="border p-3">
+                    <img src="{{product.Image_Src}}" class="border p-3">
                     <span class="sub-img">
                         <!-- Display additional images dynamically if available -->
                         {{#each product.additionalImages}}
@@ -31,16 +31,16 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <span>Category: {{product.categoryName}}</span>
-                                <p class="m-0 p-0">{{product.Title}}</p>
+                                <p class="m-0 p-0">{{product.ProName}}</p>
                             </div>
-                            <p>Rating: {{product.Rating}} | Stock: {{product.Stock}}</p>
+                            {{!-- <p>Rating: {{product.Rating}} | Stock: {{product.Stock}}</p> --}}
                             <div class="col-lg-12">
-                                <p class="m-0 p-0 price-pro">{{product.Currency}} {{product.Price}}</p>
+                                <p class="m-0 p-0 price-pro">{{product.Price}} VND</p>
                                 <hr class="p-0 m-0">
                             </div>
                             <div class="col-lg-12 pt-2">
                                 <h5>Product Detail</h5>
-                                <span>{{{product.Description}}}</span>
+                                <span>{{{product.FullDes}}}</span>
                                 <hr class="m-0 pt-2 mt-2">
                             </div>
                             <div class="col-lg-12 mt-3">
@@ -67,8 +67,8 @@
                 {{#each relatedProducts}}
                 <div class="col-lg-3 pb-2">
                     <div class="pro-box border p-0 m-0">
-                        <a href="/products/{{ID}}">
-                            <img src="{{Image1}}" alt="{{Title}}">
+                        <a href="/products/{{ProID}}">
+                            <img src="{{Image_Src}}" alt="{{Proname}}">
                         </a>
                     </div>
                 </div>

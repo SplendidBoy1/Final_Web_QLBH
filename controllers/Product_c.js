@@ -51,35 +51,34 @@ const ProductController = {
 
     async renderProductDetails(req, res) {
         const { id } = req.params;
-
+    
         try {
             // Fetch the main product
             const product = await user_db.find_product_by_id(id);
             if (!product) return res.status(404).send('Product not found');
-
-            // Add additional images dynamically
-            product.additionalImages = [
-                product.Image2, product.Image3, product.Image4,
-                product.Image5, product.Image6, product.Image7,
-                product.Image8, product.Image9,
-            ].filter(img => img); // Exclude undefined or null images
-
-            // Fetch related products (e.g., from the same category)
-            const relatedProducts = await user_db.find_products_detail({ category: product.Category }, '', 1, 4);
-
-            // Fetch category name
-            const category = await user_db.find_category_by_id(product.Category);
+    
+            // Fetch the category name
+            const category = await user_db.find_category_by_id(product.CatID);
+            if (!category) {
+                console.error(`Category not found for CatID: ${product.CatID}`);
+                return res.status(404).send('Category not found');
+            }
             product.categoryName = category.CatName;
-
-            res.render('layouts/product_details', { 
-                product, 
-                relatedProducts 
+    
+            // Fetch related products
+            const relatedProducts = await user_db.find_products_detail(
+                { category: product.CatID }, '', 1, 4
+            );
+    
+            res.render('layouts/product_details', {
+                product,
+                relatedProducts,
             });
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');
         }
-    },
+    }
 };
 
 module.exports = ProductController;

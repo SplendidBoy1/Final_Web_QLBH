@@ -145,7 +145,7 @@ module.exports = (schema) => {
             const whereClause = [];
         
             if (filter.category) {
-                whereClause.push(`"Category" = ${filter.category}`);
+                whereClause.push(`"CatID" = ${filter.category}`);
             }
         
             if (search) {
@@ -157,7 +157,7 @@ module.exports = (schema) => {
             const query = `
                 SELECT * FROM "${schema}"."Products"
                 ${whereString}
-                ORDER BY "ID" ASC
+                ORDER BY "ProID" ASC
                 LIMIT ${limit} OFFSET ${offset}
             `;
             const products = await db.any(query);
@@ -177,7 +177,7 @@ module.exports = (schema) => {
         find_product_by_id: async (productId) => {
             const query = `
                 SELECT * FROM "${schema}"."Products"
-                WHERE "ID" = $1
+                WHERE "ProID" = $1
             `;
             return await db.oneOrNone(query, [productId]);
         },
@@ -188,14 +188,14 @@ module.exports = (schema) => {
             const whereClause = [];
         
             if (filter.category) {
-                whereClause.push(`"Category" = ${filter.category}`);
+                whereClause.push(`"CatID" = ${filter.category}`);
             }
         
             const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";
             const query = `
                 SELECT * FROM "${schema}"."Products"
                 ${whereString}
-                ORDER BY "ID" ASC
+                ORDER BY "ProID" ASC
                 LIMIT ${limit} OFFSET ${offset}
             `;
             return await db.any(query);

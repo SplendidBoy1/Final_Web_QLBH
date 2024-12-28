@@ -24,11 +24,19 @@
                     <div class="panel-body">
                         <ul class="nav prod-cat">
                             {{#each categories}}
-                            <li>
+                        <li>
+                            {{#ifCond CatID 10}}
+                                <!-- Redirect to /products for "All" category -->
+                                <a href="/products" class="{{#ifCond ../category CatID}}active{{/ifCond}}">
+                                    <i class="fa fa-angle-right"></i> {{CatName}}
+                                </a>
+                            {{else}}
+                                <!-- Normal behavior for other categories -->
                                 <a href="/products?category={{CatID}}" class="{{#ifCond ../category CatID}}active{{/ifCond}}">
                                     <i class="fa fa-angle-right"></i> {{CatName}}
                                 </a>
-                            </li>
+                            {{/ifCond}}
+                        </li>
                             {{/each}}
                         </ul>
                     </div>

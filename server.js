@@ -12,6 +12,7 @@ const bodyParser = require('body-parser')
 
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
+const Landing = require('./routes/Landing_route.js');
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -116,7 +117,8 @@ initializePassport(passport);
 //app.use(router_1)
 
 app.use(Login);
-app.use(Admin)
+app.use(Admin);
+app.use(Landing);
 // app.route('/', (req, res) => {
 //   //console.log("asdfasdf")
 //   res.render('login')

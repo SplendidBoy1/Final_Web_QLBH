@@ -230,9 +230,9 @@ const df = {
             // console.log(req.body)
             // console.log(req.body.email)
             const exist_cat = await user_db.findEmail('Categories', 'CatName', req.body.catname)
-            // console.log(exist_cat)
-            // console.log("IDDDD")
-            // console.log("zzz")
+            console.log(exist_cat)
+            console.log("IDDDD")
+            console.log("zzz")
             if (exist_cat !== undefined) {
                 console.log("The category is already existed in the database!")
                 res.json({flag: false}) 
@@ -240,7 +240,7 @@ const df = {
             }
             // const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await user_db.highest_id("Categories", "CatID")
-            // console.log(id)
+            console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
             // console.log(req.body)
@@ -383,7 +383,7 @@ const df = {
             // console.log(req.body)
             // console.log(req.file.filename)
             const id = await user_db.highest_id("Products", "ProID")
-            // console.log(id)
+            console.log(id)
             const pro = {
                 ProID: parseInt(id.ProID)+1,
                 ProName: req.body.productname,

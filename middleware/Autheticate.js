@@ -67,7 +67,8 @@ function initialize(passport){
                 Username: profile.displayName,
                 Email: profile.emails[0].value,
                 Password: hassedPass,
-                Name: "Dat",
+                Name: "",
+                Role_ID: 2,
                 Permission: 1,
             }
             //console.log(user)
@@ -117,7 +118,8 @@ function initialize(passport){
                 Username: profile.displayName,
                 Email: profile.emails[0].value,
                 Password: hassedPass,
-                Name: "Dat",
+                Name: "",
+                Role_ID: 2,
                 Permission: 1,
             }
             //console.log(user)

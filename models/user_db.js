@@ -157,7 +157,7 @@ module.exports = (schema) => {
             const query = `
                 SELECT * FROM "${schema}"."Products"
                 ${whereString}
-                ORDER BY "ProID" ASC
+                ORDER BY "ID" ASC
                 LIMIT ${limit} OFFSET ${offset}
             `;
             const products = await db.any(query);
@@ -177,7 +177,7 @@ module.exports = (schema) => {
         find_product_by_id: async (productId) => {
             const query = `
                 SELECT * FROM "${schema}"."Products"
-                WHERE "ProID" = $1
+                WHERE "ID" = $1
             `;
             return await db.oneOrNone(query, [productId]);
         },
@@ -195,7 +195,7 @@ module.exports = (schema) => {
             const query = `
                 SELECT * FROM "${schema}"."Products"
                 ${whereString}
-                ORDER BY "ProID" ASC
+                ORDER BY "ID" ASC
                 LIMIT ${limit} OFFSET ${offset}
             `;
             return await db.any(query);

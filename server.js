@@ -9,7 +9,7 @@ const url = require('url')
 const initializePassport = require('./middleware/Autheticate.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
-
+const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
 const Landing = require('./routes/Landing_route.js');
@@ -123,6 +123,22 @@ app.use(Landing);
 //   //console.log("asdfasdf")
 //   res.render('login')
 // })
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else if (err) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else {
+      next();
+  }
+});
 
 app.all('*', (req, res) => {
   

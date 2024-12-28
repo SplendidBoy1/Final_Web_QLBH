@@ -18,4 +18,9 @@ module.exports = {
         const rs = await db.one(table, field, id);
         return rs;
     },
+
+    numberOrderPerYear: async (year) => {
+        const rs = await db.numberOrderPerYear(year);
+        return rs;
+    }
 }

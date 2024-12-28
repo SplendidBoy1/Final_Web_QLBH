@@ -9,9 +9,11 @@ const url = require('url')
 const initializePassport = require('./middleware/Autheticate.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
-
+const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
+const Landing = require('./routes/Landing_route.js');
+const Order = require('./routes/Order_route.js');
 
 //Profile
 const Profile = require('./routes/Profile_route.js');
@@ -97,6 +99,8 @@ app.use(flash());
 
 // getData();
 
+hbs.registerHelper('diff_id', (a, b) => a !== b)
+
 app.engine('hbs', hbs.express4({
   partialsDir: __dirname + '/views/partials'
 }));
@@ -123,24 +127,44 @@ hbs.registerHelper('ifCond', function (v1, v2, options) {
 //app.use(router_1)
 
 app.use(Login);
-app.use(Admin)
+app.use(Admin);
+app.use(Landing);
 // app.route('/', (req, res) => {
 //   //console.log("asdfasdf")
 //   res.render('login')
 // })
 
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else if (err) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else {
+      next();
+  }
+});
 //Profile
 app.use(Profile);
 
+
 //Products
 app.use(ProductRoute);
+// Orders
+app.use(Order);
+
 
 app.all('*', (req, res) => {
   
     res.status(404).send('<h1>404! Page not found</h1>');
 });
 
-app.listen(port, () => console.log(`Exmaple listening ${port}`))
+app.listen(port, () => console.log(`Exmaple listening http://localhost:${port}`))
 
 //client.connect();
 

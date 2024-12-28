@@ -42,7 +42,7 @@ const df = {
             }
             const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await user_db.highest_id("Users", "ID")
-            // console.log(id)
+            console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
             // console.log(req.body)
@@ -52,7 +52,8 @@ const df = {
                 Username: req.body.username,
                 Email: req.body.email,
                 Password: hassedPass,
-                Name: "Dat",
+                Name: "",
+                Role_ID: 2,
                 Permission: 1,
                 Role_ID: 2, // Default Role_ID set to 2 (Customer)
             }
@@ -71,15 +72,19 @@ const df = {
             const user = await req.user;
             // console.log(user)
             const role_join_user = await user_db.find_join("Users", "Role", "Role_ID", "ID", user.Role_ID)
-            //console.log(role_join_user)
+            // console.log(role_join_user)
             if (role_join_user === undefined)return res.redirect('/login')
+
             if (role_join_user.Role_user === "Admin"){
 
                 return res.redirect('/admin')
             }
             else {
-                if (role_join_user.Role_user === "Customer")
-                return res.redirect('/landing')
+                if (role_join_user.Role_user === "Customer"){
+                    // console.log(role_join_user.Role_user)
+                    return res.redirect('/landing')
+                }
+                
             }
             // return res.render('layouts/main_admin')
         }

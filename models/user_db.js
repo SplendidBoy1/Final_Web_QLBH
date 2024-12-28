@@ -131,6 +131,21 @@ module.exports = (schema) => {
             // console.log("qqqqqqqqqq")
             // const rs = await db.any(`SELECT count(*) from "${this.schema}"."${tbName}"`)
             return rs
-        }
+        },
+
+        //Use for editng profile
+        update_User: async (tbName, entity) => {
+            const updateFields = [`"Name" = '${entity.name}'`, `"Email" = '${entity.email}'`];
+            if (entity.password) {
+                updateFields.push(`"Password" = '${entity.password}'`);
+            }
+        
+            const rs = await db.any(`
+                UPDATE "${schema}"."${tbName}"
+                SET ${updateFields.join(', ')}
+                WHERE "ID" = ${entity.id};
+            `);
+            return rs;
+        },
     }
 }

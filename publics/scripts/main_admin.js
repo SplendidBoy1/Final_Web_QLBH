@@ -403,6 +403,56 @@ function search_pro(){
     })
 }
 
+$('#confirmCatDeleteBtn').click( (e) => {
+    console.log("qqqqqqqqqq")
+    console.log(curr_id_user)
+    const id = curr_id_cat
+    $.ajax({
+        url: 'http://localhost:21239/delete_category',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: id}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                alert("Delete success")
+                location.reload()
+            }
+            else{
+                alert("Category not found")
+            }
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+})
+
+$('#confirmProDeleteBtn').click( (e) => {
+    console.log("qqqqqqqqqq")
+    console.log(curr_id_user)
+    const id = curr_id_pro
+    $.ajax({
+        url: 'http://localhost:21239/delete_product',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: id}),
+        success: (res) => {
+            console.log(res)
+            if (res.flag == true){
+                alert("Delete success")
+                location.reload()
+            }
+            else{
+                alert("Category not found")
+            }
+        },
+        error: (xhr, status, error) => {
+            alert(error)
+        }
+    })
+})
+
 // $('.add_pro_form').submit((e) => {
 //     console.log('qq')
 //     e.preventDefault();

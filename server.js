@@ -91,6 +91,8 @@ app.use(flash());
 
 // getData();
 
+hbs.registerHelper('diff_id', (a, b) => a !== b)
+
 app.engine('hbs', hbs.express4({
   partialsDir: __dirname + '/views/partials'
 }));

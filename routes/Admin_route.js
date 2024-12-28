@@ -30,13 +30,15 @@ router.post('/search_cat', controller_1.Search_Cat)
 
 router.post('/add_category', controller_1.Add_Cat)
 
-
+router.post('/delete_category', controller_1.Delete_Cat)
 
 router.post('/update_pro', controller_1.Update_Pro)
 
 router.post('/search_pro', controller_1.Search_Pro)
 
 router.post('/add_pro', upload.single('file'), controller_1.Add_Pro)
+
+router.post('/delete_product', controller_1.Delete_Pro)
 // router.get('/edit_page', controller_1.to_edit_page);
 
 module.exports = router

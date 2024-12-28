@@ -52,6 +52,11 @@ module.exports = (schema) => {
         },
         highest_id: async (tbName, type) => {
             const rs = await db.any(`select * from "${schema}"."${tbName}" order by "${type}" desc limit 1`)
+            console.log("IDIDID")
+            console.log(rs);
+            if(rs.length == 0){
+                return {ProID : 0};
+            }
             return rs[0]
         },
         find_join: async(tbName_1, tbName_2, join_1, join_2, where) => {
@@ -62,6 +67,10 @@ module.exports = (schema) => {
         find_all: async(tbName, type_for_order, order) => {
             // console.log("qqqqqqqqqq")
             const rs = await db.any(`SELECT * FROM "${schema}"."${tbName}" ORDER BY "${type_for_order}" ${order}`);
+            return rs;
+        },
+        findAll_with_where: async(tbName, type, data) => {
+            const rs = await db.any(`select * from "${schema}"."${tbName}" where "${type}" = '${data}'`)
             return rs;
         },
         update_User: async(tbName, entity) => {

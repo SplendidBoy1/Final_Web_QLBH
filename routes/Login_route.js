@@ -29,7 +29,7 @@ router.get('/register', controller_1.Register)
 router.post('/register', controller_1.Register_account)
 // router.get('/get_infor', controller_1.render_information);
 
-router.get('/landing', controller_1.Render_landing)
+// router.get('/landing', controller_1.Render_landing)
 
 router.get('/admin', controller_1.Render_admin)
 

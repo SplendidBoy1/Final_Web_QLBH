@@ -10,10 +10,10 @@ const user_db = require('../models/user_db.js')(scheme);
 const df = {
     async Update_user(req, res){
         try{
-            // console.log("Update user")
-            // console.log("Bodyyy")
-            // console.log(req.body)
-            // console.log(req.body.email)
+            console.log("Update user")
+            console.log("Bodyyy")
+            console.log(req.body)
+            console.log(req.body.email)
             const exist_user = await user_db.findEmail('Users', 'Email', req.body.email)
             // console.log(exist_user)
             // console.log("IDDDD")
@@ -59,14 +59,14 @@ const df = {
     },
     async Search_email(req, res){
         try{
-            // console.log(req.body)
+            console.log(req.body)
             const exist_user = await user_db.search_string_users('Users', 'Email', req.body.search_email)
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
             if (exist_user !== undefined) {
-                // console.log("QQQQExs")
-                // console.log(exist_user)
+                console.log("QQQQExs")
+                console.log(exist_user)
                 res.json(exist_user)
                 return
             }
@@ -96,13 +96,13 @@ const df = {
             return
         }      
         catch{
-            // console.log("WTF")
+            console.log("WTF")
             res.redirect('/admin')
         }
     },
     async Delete_email(req, res){
         try{
-            // console.log(req.body)
+            console.log(req.body)
             const rs = await user_db.delete("Users", "ID", req.body.id)
             res.json({flag : true})
             return
@@ -114,11 +114,11 @@ const df = {
     },
     async Add_user(req, res){
         try{
-            // console.log("BODYYYYYYYYY")
-            // console.log(req.body)
-            // console.log(req.body.email)
+            console.log("BODYYYYYYYYY")
+            console.log(req.body)
+            console.log(req.body.email)
             const exist_user = await user_db.findEmail('Users', 'Email', req.body.email)
-            // console.log(exist_user)
+            console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
             if (exist_user !== undefined) {
@@ -128,7 +128,7 @@ const df = {
             }
             const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await user_db.highest_id("Users", "ID")
-            // console.log(id)
+            console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
             // console.log(req.body)
@@ -183,9 +183,9 @@ const df = {
     },
     async Search_Cat(req, res){
         try{
-            // console.log(req.body)
+            console.log(req.body)
             const exist_cat = await user_db.search_name_cat("Categories", "CatName", req.body.search_cat)
-            // console.log(exist_cat)
+            console.log(exist_cat)
             // console.log("IDDDD")
             // console.log("zzz")
             if (exist_cat !== undefined) {
@@ -226,13 +226,13 @@ const df = {
     },
     async Add_Cat(req, res){
         try{
-            // console.log("BODYYYYYYYYY")
-            // console.log(req.body)
+            console.log("BODYYYYYYYYY")
+            console.log(req.body)
             // console.log(req.body.email)
             const exist_cat = await user_db.findEmail('Categories', 'CatName', req.body.catname)
             console.log(exist_cat)
-            console.log("IDDDD")
-            console.log("zzz")
+            // console.log("IDDDD")
+            // console.log("zzz")
             if (exist_cat !== undefined) {
                 console.log("The category is already existed in the database!")
                 res.json({flag: false}) 
@@ -259,52 +259,15 @@ const df = {
             res.redirect('/admin')
         }
     },
-    async Delete_Cat(req, res){
-        try{
-            // console.log(req.body)
-            // const hi = []
-            const exist_pro = await user_db.findAll_with_where('Products', 'CatID', req.body.id)
-            // console.log(exist_pro)
-            const find_all_id = await user_db.findEmail('Categories', 'CatName', 'All')
-            // console.log(find_all_id)
-            for (let i = 0; i < exist_pro.length; i++){
-                console.log("HIHIHIHIHI")
-                console.log(exist_pro[i].ProID)
-                // `UPDATE "${schema}"."${tbName}"
-                // SET "ProName" = '${entity.name}', "FullDes" = '${entity.des}', "Image_Src" = '${entity.img}', "Price" = ${entity.price}, "CatID" = ${entity.catid}, "ID_User" = ${entity.userid}
-                // WHERE "ProID" = ${entity.id};`)
-                const new_pro = {
-                    "id" : exist_pro[i].ProID,
-                    "name" : exist_pro[i].ProName,
-                    "des" : exist_pro[i].FullDes,
-                    "img": exist_pro[i].Image_Src,
-                    "price" : exist_pro[i].Price,
-                    "catid": find_all_id.CatID,
-                    "userid": exist_pro[i].ID_User
-                }
-                console.log(new_pro);
-                console.log(req.body.id)
-                const rs = await user_db.update_pro("Products", new_pro);
-            }
-            const rs = await user_db.delete("Categories", "CatID", req.body.id)
-            res.json({flag : true})
-            return
-        }      
-        catch{
-            res.json({flag : false})
-            return
-        }
-    },
     async Update_Pro(req, res){
         try{
-            // console.log("Update user")
-            // console.log("Bodyyy")
-            // console.log(req.body)
+            console.log("Update user")
+            console.log("Bodyyy")
+            console.log(req.body)
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
-            const rs = await user_db.update_pro("Products", req.body)
-            // console.log(rs)
+            const rs = user_db.update_pro("Products", req.body)
             // const hassedPass = await bcrypt.hash(req.body.password, 10);
             // const id = await db.highest_id("Users", "ID")
             // console.log(id)
@@ -327,16 +290,16 @@ const df = {
             return
         }      
         catch{
-            // console.log("WTF")
+            console.log("WTF")
             res.json({flag: false})
-            // res.redirect('/admin')
+            res.redirect('/admin')
         }
     },
     async Search_Pro(req, res){
         try{
-            // console.log(req.body)
+            console.log(req.body)
             const exist_pro = await user_db.search_pro("Products", "ProName", req.body.search_pro)
-            // console.log(exist_pro)
+            console.log(exist_pro)
             // console.log("IDDDD")
             // console.log("zzz")
             if (exist_pro !== undefined) {
@@ -375,38 +338,24 @@ const df = {
         }
     },
     async Add_Pro(req, res){
-        console.log("BODYYYYYYYYY")
-        console.log(req.body)
+        // console.log("BODYYYYYYYYY")
+        // console.log(req.body)
         try{
             // console.log(req.file.filename)
             // console.log("BODYYYYYYYYY")
             // console.log(req.body)
-            // console.log(req.file.filename)
-            let image_src = "";
-            if (req.body.link !== undefined){
-                // console.log("hihi")
-                // console.log(req.body)
-                // console.log(req.body.link)
-                image_src = req.body.link
-                // console.log(image_src)
-            }
-            else{
-                // console.log("huhu")
-                image_src = "images/products/" + req.file.filename;
-            }
             const id = await user_db.highest_id("Products", "ProID")
-            // console.log(image_src)
             const pro = {
                 ProID: parseInt(id.ProID)+1,
                 ProName: req.body.productname,
                 FullDes: req.body.describe,
-                Image_Src: image_src,
+                Image_Src: req.file.filename,
                 Price: parseInt(req.body.price),
                 CatID: parseInt(req.body.catID),
                 ID_User: parseInt(req.body.userID),
             }
             const rs = user_db.add('Products', pro)
-            // console.log(rs)
+            // console.log(req.cookies)
             if(rs === '')throw 'Error'
             // console.log("qqqqqqq")
             
@@ -421,17 +370,5 @@ const df = {
             return
         }
     },
-    async Delete_Pro(req, res){
-        try{
-            // console.log(req.body)
-            const rs = await user_db.delete("Products", "ProID", req.body.id)
-            res.json({flag : true})
-            return
-        }      
-        catch{
-            res.json({flag : false})
-            return
-        }
-    }
 }
 module.exports = df

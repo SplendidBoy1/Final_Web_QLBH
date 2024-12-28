@@ -49,7 +49,7 @@ function initialize(passport){
         // console.log("refress")
         // console.log(refreshToken)
         // console.log("pro")
-        console.log(profile)
+        // console.log(profile)
         // console.log(profile.emails[0].value)
         const user = await db.findEmail('Users', 'Email', profile.emails[0].value)
         // console.log("USERRR")
@@ -67,8 +67,7 @@ function initialize(passport){
                 Username: profile.displayName,
                 Email: profile.emails[0].value,
                 Password: hassedPass,
-                Name: "",
-                Role_ID: 2,
+                Name: "Dat",
                 Permission: 1,
             }
             //console.log(user)
@@ -118,8 +117,7 @@ function initialize(passport){
                 Username: profile.displayName,
                 Email: profile.emails[0].value,
                 Password: hassedPass,
-                Name: "",
-                Role_ID: 2,
+                Name: "Dat",
                 Permission: 1,
             }
             //console.log(user)

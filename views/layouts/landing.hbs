@@ -13,12 +13,10 @@
     <!-- icon -->
     <script src="https://kit.fontawesome.com/9dfff9b2c9.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-
-    <script src="./scripts/healthrecord.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- header/nav bar -->
+<<<<<<< HEAD
     {{> navigation}}
 
     {{> advertisement}}
@@ -26,7 +24,61 @@
     {{> categories}}
     
     {{> suggestion}}
+=======
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-wrap">
+            <div class="container">
+                <a href="/mainpage" class="navbar-brand">FitStore</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 me-5">
+                        <li class="nav-item nav-item-space">
+                            <a href="/products" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item nav-item-space">
+                            <a href="/healthrecord" class="nav-link">Health Record</a>
+                        </li>
+                        <li class="nav-item nav-item-space">
+                            <a href="/bmi" class="nav-link">BMI</a>
+                        </li>
+                        <li class="nav-item nav-item-space">
+                            <a href="/health_monitoring" class="nav-link">Health Monitoring</a>
+                        </li>
+                        <li class="nav-item nav-item-space">
+                            <a href="/foodportion" class="nav-link">Food Portion</a>
+                        </li>
+                    </ul>
+                    <div class="dropdown">
+                        <button class="circle-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user fa-lg" style="color: #052b40;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="/profile">View profile</a></li>
+                        <li><a class="dropdown-item" href="/edit_profile">Edit profile</a></li>
+                        <li><a class="dropdown-item" href="/logout" style="color: #E44343;">
+                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #E44343;"></i>
+                            Log out
+                        </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- tool bar -->
+
+    <!-- add form -->
+    qqqqqqqqqqqqq
+
+
+    <!-- content -->
+>>>>>>> parent of 25fe629 (Merge branch 'phung_main' into Products_listing)
    
 
+    <script src="./scripts/healthrecord.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -21,6 +21,8 @@
                             <i class="fa-regular fa-user fa-lg" style="color: #052b40;"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="/profile">View profile</a></li>
+                        <li><a class="dropdown-item" href="/edit_profile">Edit profile</a></li>
                         <li><a class="dropdown-item" href="/logout" style="color: #E44343;">
                             <i class="fa-solid fa-arrow-right-from-bracket" style="color: #E44343;"></i>
                             Log out
@@ -78,26 +80,20 @@
                                     <tr id="user_{{this.CatD}}">
                                     <th scope="row">{{this.CatID}}</th>
                                     <td>{{this.CatName}}</td>
-                                    {{#if (diff_id this.CatName "All")}}
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCatForm" onclick="update_Cat({{this.CatID}})">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCatForm" onclick="delete_Cat({{this.CatID}})">
-                                                        <i class="fa-solid fa-x"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    {{else}}
                                     <td>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCatForm" onclick="update_Cat({{this.CatID}})">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-4">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCatForm" onclick="delete_Cat({{this.CatID}})">
+                                                    <i class="fa-solid fa-x"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
-                                    {{/if}}
-                                    
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -139,7 +135,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 id="modalLabel">Do you want to delete this category?</h3>
+                                    <h3 id="modalLabel">Do you want to delete this user?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -229,7 +225,7 @@
                                     <tr id="user_{{this.ProID}}">
                                     <th scope="row">{{this.ProID}}</th>
                                     <td>
-                                        <img src="{{this.Image_Src}}" alt="product" style="max-height:100%; max-width:100%;">
+                                        <img src="/images/products/{{this.Image_Src}}" alt="product" style="max-height:100%; max-width:100%;">
                                         <div class="text-center">{{this.Image_Src}}</div>
                                     </td>
                                     <td>{{this.ProName}}</td>
@@ -328,17 +324,17 @@
                     </div>
 
                     {{!-- Delete Form --}}
-                    <div class="modal fade" id="deleteProForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal fade" id="deleteCatForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 id="modalLabel">Do you want to delete this product?</h3>
+                                    <h3 id="modalLabel">Do you want to delete this user?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="d-flex flex-row justify-content-end">
                                         <button type="button" class="cancle-btn p-2 me-3" data-bs-dismiss="modal">Cancel</button>
-                                        <button class="confirm-btn p-2" id="confirmProDeleteBtn">Yes</button>
+                                        <button class="confirm-btn p-2" id="confirmCatDeleteBtn">Yes</button>
                                     </div>
                                 </div>
                             </div>
@@ -376,22 +372,6 @@
                                             <div class="input-group mb-3">
                                                 <div class="form-floating">
                                                     <input type="file" name="file" id="addImg">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                        </div>
-                                        <div class="col-6">
-                                            <input class="form-check-input" type="checkbox" value="" id="apply_link">
-                                            <label class="form-check-label" for="apply_link">
-                                                Apply link
-                                            </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="input-group mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="addLink" name="link" placeholder="Link" disabled>
-                                                    <label for="addLink">URL</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -667,6 +647,7 @@
         </div>
     </div>
     {{#if flag_alert}}
+        qwe
     {{else}}
         <script type="text/javascript">
         alert("Add product error")</script>

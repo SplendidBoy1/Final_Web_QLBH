@@ -19,8 +19,8 @@ module.exports = {
         return rs;
     },
 
-    numberOrderPerYear: async (year) => {
-        const rs = await db.numberOrderPerYear(year);
+    numberOrderPerYear: async (year, userId) => {
+        const rs = await db.numberOrderPerYear(year, userId);
         return rs;
     }
 }

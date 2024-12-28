@@ -14,7 +14,7 @@ const clientProfileController = {
         });
 
         const current_year = new Date().getFullYear();
-        const orders_per_year = await order_db.numberOrderPerYear(current_year);
+        const orders_per_year = await order_db.numberOrderPerYear(current_year, user.ID);
 
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var orders_per_month = [];

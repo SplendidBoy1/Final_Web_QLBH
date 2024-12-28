@@ -83,10 +83,10 @@ module.exports = schema => {
             }
             return rs[0]
         },
-        numberOrderPerYear: async (year) => {
+        numberOrderPerYear: async (year, userId) => {
             const rs = await db.any(`SELECT EXTRACT(MONTH FROM "OrderDate") as "OrderMonth", 
 		                            TO_CHAR("OrderDate", 'Mon') as mon, 
-		                            COUNT("OrderID") from public."Orders" WHERE EXTRACT(YEAR FROM "OrderDate") = ${year}
+		                            COUNT("OrderID") from public."Orders" WHERE EXTRACT(YEAR FROM "OrderDate") = ${year}  AND "ID_User" = ${userId}
 		                            group by 1, 2 ORDER BY "OrderMonth"`);
             return rs;
         }

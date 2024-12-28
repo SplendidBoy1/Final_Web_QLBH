@@ -80,20 +80,26 @@
                                     <tr id="user_{{this.CatD}}">
                                     <th scope="row">{{this.CatID}}</th>
                                     <td>{{this.CatName}}</td>
+                                    {{#if (diff_id this.CatName "All")}}
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCatForm" onclick="update_Cat({{this.CatID}})">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCatForm" onclick="delete_Cat({{this.CatID}})">
+                                                        <i class="fa-solid fa-x"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    {{else}}
                                     <td>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCatForm" onclick="update_Cat({{this.CatID}})">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-4">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCatForm" onclick="delete_Cat({{this.CatID}})">
-                                                    <i class="fa-solid fa-x"></i>
-                                                </button>
-                                            </div>
-                                        </div>
                                     </td>
+                                    {{/if}}
+                                    
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -135,7 +141,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 id="modalLabel">Do you want to delete this user?</h3>
+                                    <h3 id="modalLabel">Do you want to delete this category?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -324,17 +330,17 @@
                     </div>
 
                     {{!-- Delete Form --}}
-                    <div class="modal fade" id="deleteCatForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal fade" id="deleteProForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 id="modalLabel">Do you want to delete this user?</h3>
+                                    <h3 id="modalLabel">Do you want to delete this product?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="d-flex flex-row justify-content-end">
                                         <button type="button" class="cancle-btn p-2 me-3" data-bs-dismiss="modal">Cancel</button>
-                                        <button class="confirm-btn p-2" id="confirmCatDeleteBtn">Yes</button>
+                                        <button class="confirm-btn p-2" id="confirmProDeleteBtn">Yes</button>
                                     </div>
                                 </div>
                             </div>
@@ -647,7 +653,6 @@
         </div>
     </div>
     {{#if flag_alert}}
-        qwe
     {{else}}
         <script type="text/javascript">
         alert("Add product error")</script>

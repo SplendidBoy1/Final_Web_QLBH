@@ -42,7 +42,7 @@ const df = {
             }
             const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await user_db.highest_id("Users", "ID")
-            // console.log(id)
+            console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
             // console.log(req.body)
@@ -52,7 +52,8 @@ const df = {
                 Username: req.body.username,
                 Email: req.body.email,
                 Password: hassedPass,
-                Name: "Dat",
+                Name: "",
+                Role_ID: 2,
                 Permission: 1,
             }
             //console.log(user)

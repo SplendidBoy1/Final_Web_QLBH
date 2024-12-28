@@ -13,6 +13,9 @@ const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
 const Landing = require('./routes/Landing_route.js');
+
+//Profile
+const Profile = require('./routes/Profile_route.js');
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -139,6 +142,8 @@ app.use((err, req, res, next) => {
       next();
   }
 });
+//Profile
+app.use(Profile);
 
 app.all('*', (req, res) => {
   

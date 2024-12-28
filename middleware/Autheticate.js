@@ -49,7 +49,7 @@ function initialize(passport){
         // console.log("refress")
         // console.log(refreshToken)
         // console.log("pro")
-        // console.log(profile)
+        console.log(profile)
         // console.log(profile.emails[0].value)
         const user = await db.findEmail('Users', 'Email', profile.emails[0].value)
         // console.log("USERRR")

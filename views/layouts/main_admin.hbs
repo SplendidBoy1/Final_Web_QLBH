@@ -231,7 +231,7 @@
                                     <tr id="user_{{this.ProID}}">
                                     <th scope="row">{{this.ProID}}</th>
                                     <td>
-                                        <img src="/images/products/{{this.Image_Src}}" alt="product" style="max-height:100%; max-width:100%;">
+                                        <img src="{{this.Image_Src}}" alt="product" style="max-height:100%; max-width:100%;">
                                         <div class="text-center">{{this.Image_Src}}</div>
                                     </td>
                                     <td>{{this.ProName}}</td>
@@ -378,6 +378,22 @@
                                             <div class="input-group mb-3">
                                                 <div class="form-floating">
                                                     <input type="file" name="file" id="addImg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                        </div>
+                                        <div class="col-6">
+                                            <input class="form-check-input" type="checkbox" value="" id="apply_link">
+                                            <label class="form-check-label" for="apply_link">
+                                                Apply link
+                                            </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="addLink" name="link" placeholder="Link" disabled>
+                                                    <label for="addLink">URL</label>
                                                 </div>
                                             </div>
                                         </div>

@@ -9,9 +9,10 @@ const url = require('url')
 const initializePassport = require('./middleware/Autheticate.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
-
+const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
+const Landing = require('./routes/Landing_route.js');
 const flash = require('connect-flash')
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -116,11 +117,28 @@ initializePassport(passport);
 //app.use(router_1)
 
 app.use(Login);
-app.use(Admin)
+app.use(Admin);
+app.use(Landing);
 // app.route('/', (req, res) => {
 //   //console.log("asdfasdf")
 //   res.render('login')
 // })
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else if (err) {
+      req.session['success'] = false
+      res.redirect('/admin')
+      // res.redirect('/admin')
+      return
+  } else {
+      next();
+  }
+});
 
 app.all('*', (req, res) => {
   

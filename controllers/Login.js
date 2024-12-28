@@ -70,15 +70,19 @@ const df = {
             const user = await req.user;
             // console.log(user)
             const role_join_user = await user_db.find_join("Users", "Role", "Role_ID", "ID", user.Role_ID)
-            //console.log(role_join_user)
+            // console.log(role_join_user)
             if (role_join_user === undefined)return res.redirect('/login')
+
             if (role_join_user.Role_user === "Admin"){
 
                 return res.redirect('/admin')
             }
             else {
-                if (role_join_user.Role_user === "Customer")
-                return res.redirect('/landing')
+                if (role_join_user.Role_user === "Customer"){
+                    // console.log(role_join_user.Role_user)
+                    return res.redirect('/landing')
+                }
+                
             }
             // return res.render('layouts/main_admin')
         }

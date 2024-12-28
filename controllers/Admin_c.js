@@ -230,9 +230,9 @@ const df = {
             // console.log(req.body)
             // console.log(req.body.email)
             const exist_cat = await user_db.findEmail('Categories', 'CatName', req.body.catname)
-            // console.log(exist_cat)
-            // console.log("IDDDD")
-            // console.log("zzz")
+            console.log(exist_cat)
+            console.log("IDDDD")
+            console.log("zzz")
             if (exist_cat !== undefined) {
                 console.log("The category is already existed in the database!")
                 res.json({flag: false}) 
@@ -240,7 +240,7 @@ const df = {
             }
             // const hassedPass = await bcrypt.hash(req.body.password, 10);
             const id = await user_db.highest_id("Categories", "CatID")
-            // console.log(id)
+            console.log(id)
             // console.log(parseInt(id.count)+1)
             // console.log("resss")
             // console.log(req.body)
@@ -375,20 +375,32 @@ const df = {
         }
     },
     async Add_Pro(req, res){
-        // console.log("BODYYYYYYYYY")
-        // console.log(req.body)
+        console.log("BODYYYYYYYYY")
+        console.log(req.body)
         try{
             // console.log(req.file.filename)
             // console.log("BODYYYYYYYYY")
             // console.log(req.body)
             // console.log(req.file.filename)
+            let image_src = "";
+            if (req.body.link !== undefined){
+                // console.log("hihi")
+                // console.log(req.body)
+                // console.log(req.body.link)
+                image_src = req.body.link
+                // console.log(image_src)
+            }
+            else{
+                // console.log("huhu")
+                image_src = "images/products/" + req.file.filename;
+            }
             const id = await user_db.highest_id("Products", "ProID")
-            // console.log(id)
+            // console.log(image_src)
             const pro = {
                 ProID: parseInt(id.ProID)+1,
                 ProName: req.body.productname,
                 FullDes: req.body.describe,
-                Image_Src: req.file.filename,
+                Image_Src: image_src,
                 Price: parseInt(req.body.price),
                 CatID: parseInt(req.body.catID),
                 ID_User: parseInt(req.body.userID),

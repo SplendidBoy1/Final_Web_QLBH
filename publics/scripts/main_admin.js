@@ -453,6 +453,25 @@ $('#confirmProDeleteBtn').click( (e) => {
     })
 })
 
+$('#apply_link').click(e => {
+    if ($('#apply_link').is(':checked')){
+        $("#addLink").prop('disabled', false);
+    }
+    else{
+        $("#addLink").prop('disabled', true);
+    }
+})
+
+// $('#apply_link').is(':checked'){
+//     console.log("HEHEHE")
+// }
+
+// if (document.getElementById('remember').checked) {
+//     alert("checked");
+// } else {
+//     alert("You didn't check it! Let me check it for you.");
+// }
+
 // $('.add_pro_form').submit((e) => {
 //     console.log('qq')
 //     e.preventDefault();

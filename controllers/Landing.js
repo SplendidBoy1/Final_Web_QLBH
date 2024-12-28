@@ -12,6 +12,9 @@ const product_db = require('../models/product_db.js');
 
 const df = {
     Landing: async (req, res) => {
+        if (!req.isAuthenticated()){
+            return res.redirect('/login')
+        }
         console.log("HEHEHEHE")
         const categories = await category_db.all();        
         const top30Rating = await product_db.top30Rating();

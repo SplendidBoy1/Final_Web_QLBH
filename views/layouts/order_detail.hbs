@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header }}
+    <title>Order Detaits</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <link href="styles/main_page.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="mb-5">
+        <nav class="navbar navbar-expand-lg navbar-wrap">
+            <div class="container">
+                <a href="/landing" class="navbar-brand">FitStore</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 me-5">
+                        
+                    </ul>
+                    <div class="dropdown">
+                        <button class="circle-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user fa-lg" style="color: #052b40;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="/profile">View profile</a></li>
+                        <li><a class="dropdown-item" href="/logout" style="color: #E44343;">
+                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #E44343;"></i>
+                            Log out
+                        </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Order ID: {{order.OrderID}}</h4>
+            <p>Order Date: {{order.OrderDate}}</p>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                    <tr>
+                        <td>{{this.ProName}}</td>
+                        <td>{{this.Amount}}</td>
+                        <td>{{this.Total_price}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

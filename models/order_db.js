@@ -9,8 +9,13 @@ module.exports = {
         return rs;
     },
 
+    allBy: async (table, field, id) => {
+        const rs = await db.allBy(table, field, id);
+        return rs;
+    },
+
     one: async (table, field, id) => {
         const rs = await db.one(table, field, id);
         return rs;
-    }
+    },
 }

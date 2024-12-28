@@ -7,6 +7,224 @@
     <link href="styles/main_page.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #EEF6F9;
+        }
+
+        /*===== NAVBAR =====*/
+
+        .navbar-wrap{
+            background-color: #4D77FF;
+        }
+
+        .navbar-brand{
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            transition: all 0.4s;
+        }
+
+        .navbar-brand:hover{
+            color:#052B40;
+            transition: all 0.4s;
+        }
+
+        .nav-item-space{
+            margin: 0 10px;
+        }
+
+        .nav-link{
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            transition: all 0.4s;
+        }
+
+        .nav-link:hover{
+            color:#052B40;
+            transition: all 0.4s;
+        }
+
+        .log-in-btn{
+            padding: 5px 20px;
+            border: 0;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /*===== MAIN CONTENTS =====*/
+
+        .tool-bar-wrap{
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0px 0px 30px rgba(5, 43, 64, 0.1);
+        }
+
+        .content-wrap{
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0px 0px 30px rgba(5, 43, 64, 0.1);
+        }
+
+        .overview-wrap{
+            background-color: #FFCC33;
+            border-radius: 20px;
+        }
+
+        .main h1{
+            font-weight: 700;
+            font-size: 128px;
+            color:#052B40;
+            margin: 0;
+        }
+
+        .main h2{
+            font-weight: 700;
+            font-size: 48px;
+            color:#052B40;
+            margin: 0;
+        }
+
+        .main h3{
+            font-weight: 600;
+            font-size: 16px;
+            color:#052B40;
+            margin: 0;
+        }
+
+        .main h4{
+            font-weight: 400;
+            font-size: 16px;
+            color:#052B40;
+            margin: 0;
+        }
+
+        .main h5{
+            font-weight: 400;
+            font-size: 16px;
+            color: #5C6B73;
+            margin: 0;
+        }
+
+        .main p{
+            font-weight: 400;
+            font-size: 16px;
+            color:#052B40;
+            margin: 0;
+        }
+
+        .tool-btn{
+            border: 0;
+            background-color: transparent;
+            margin: 0px 15px;
+        }
+
+        .tool-bar h4{
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+            margin: 0;
+        }
+
+        #addForm h3{
+            font-weight: 600;
+            font-size: 32px;
+            color: #052B40;
+            margin: 0;
+        }
+
+        #updateForm h3{
+            font-weight: 600;
+            font-size: 32px;
+            color: #052B40;
+            margin: 0;
+        }
+
+        #deletePrompt h3{
+            font-weight: 600;
+            font-size: 32px;
+            color: #052B40;
+            margin: 0;
+        }
+
+        .select-wrap{
+            width: 150px;
+        }
+
+        .select-wrap select{
+            background-color: transparent;
+            border-width: 3px;
+            border-color: #4D77FF;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            color:#052B40;
+        }
+
+        .add-btn{
+            border: 0;
+            background-color: #4D77FF;
+            color: #FFFFFF;
+            border-radius: 20px;
+        }
+
+        .cancle-btn{
+            width: 100px;
+            border-color: #4D77FF;
+            border-width: 2px;
+            background-color: transparent;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            color:#052B40;
+        }
+
+        .confirm-btn{
+            width: 100px;
+            border: 0;
+            background-color: #4D77FF;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            color:#FFFFFF;
+        }
+
+        .circle-btn{
+            height: 50px;
+            width: 50px;
+            border: 0;
+            border-radius: 50%;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+        }
+
+        .dropdown-item{
+            font-size: 1rem;
+            color: #052B40;
+            font-weight: 600;
+        }
+
+        main {
+            margin: 20px
+        }
+        .card {
+            border: 0;
+            border-radius: 20px;
+            box-shadow: 0px 0px 30px rgba(5, 43, 64, 0.1);            
+        }
+
+    </style>
 </head>
 <body>
     <header class="mb-5">
@@ -37,31 +255,41 @@
         </nav>
     </header>
 
-    <div class="card">
-        <div class="card-header">
-            <h4>Order ID: {{order.OrderID}}</h4>
-            <p>Order Date: {{order.OrderDate}}</p>
+    <main>    
+        <div class="card">
+            <div class="card-header">
+                <h4><b>Order ID #{{order.OrderID}}</b></h4>
+                <p>Order Date: {{order.OrderDate}}</p>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                        <tr>
+                            <td>
+                                <img src="{{this.Image}}" alt="product image" style="width: 100px;" />
+                                <span>{{this.ProName}}</span>
+                            </td>
+                            <td>{{this.Amount}}</td>
+                            <td>{{this.Total_price}}</td>
+                        </tr>
+                        {{/each}}
+                        <tr>
+                            <td><b>Total Amount</b></td>
+                            <td></td>
+                            <td>{{order.Total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each products}}
-                    <tr>
-                        <td>{{this.ProName}}</td>
-                        <td>{{this.Amount}}</td>
-                        <td>{{this.Total_price}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </main>
 </body>
 </html>

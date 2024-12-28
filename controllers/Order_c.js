@@ -13,11 +13,9 @@ module.exports = {
         var products = await order_db.allBy('OrderDetails', 'OrderID', order_id);
 
         products.forEach(async (product) => {
-            const product_info = await product_db.one('Products', 'ProID', product.ProID);
-            console.log(product_info);
+            const product_info = await product_db.one('Products', 'ProID', product.ProID);            
             product.ProName = product_info.ProName;
-            product.Image_Src = product_info.Image_Src;
-            product.ProPrice = product_info.Price;
+            product.Image = product_info.Image_Src;            
         });
         // console.log(products);
 

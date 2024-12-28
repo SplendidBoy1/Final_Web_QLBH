@@ -55,6 +55,7 @@ const df = {
                 Name: "",
                 Role_ID: 2,
                 Permission: 1,
+                Role_ID: 2, // Default Role_ID set to 2 (Customer)
             }
             //console.log(user)
             user_db.add('Users', user)

@@ -150,7 +150,7 @@ app.all('*', (req, res) => {
     res.status(404).send('<h1>404! Page not found</h1>');
 });
 
-app.listen(port, () => console.log(`Exmaple listening ${port}`))
+app.listen(port, () => console.log(`Exmaple listening http://localhost:${port}`))
 
 //client.connect();
 

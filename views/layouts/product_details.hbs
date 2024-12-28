@@ -17,11 +17,11 @@
             <div class="row m-0">
                 <!-- Left-side Image Section -->
                 <div class="col-lg-4 left-side-product-box pb-3">
-                    <img src="/images/products/{{product.Image1}}" class="border p-3">
+                    <img src="{{product.Image1}}" class="border p-3">
                     <span class="sub-img">
                         <!-- Display additional images dynamically if available -->
                         {{#each product.additionalImages}}
-                        <img src="/images/products/{{this}}" class="border p-2">
+                        <img src="{{this}}" class="border p-2">
                         {{/each}}
                     </span>
                 </div>
@@ -67,8 +67,8 @@
                 {{#each relatedProducts}}
                 <div class="col-lg-3 pb-2">
                     <div class="pro-box border p-0 m-0">
-                        <a href="/products/{{ID}}">
-                            <img src="/images/products/{{Image1}}" alt="{{Title}}">
+                        <a href="/products/{{ProID}}">
+                            <img src="{{Image1}}" alt="{{Title}}">
                         </a>
                     </div>
                 </div>

@@ -150,7 +150,7 @@ module.exports = (schema) => {
         
             if (search) {
                 const searchLower = search.toLowerCase();
-                whereClause.push(`LOWER("ProName") LIKE '%${searchLower}%' OR LOWER("Description") LIKE '%${searchLower}%'`);
+                whereClause.push(`LOWER("Title") LIKE '%${searchLower}%' OR LOWER("Description") LIKE '%${searchLower}%'`);
             }
         
             const whereString = whereClause.length > 0 ? `WHERE ${whereClause.join(" AND ")}` : "";

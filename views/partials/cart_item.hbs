@@ -1,0 +1,35 @@
+<div class="card" style="margin: 20px;">
+    <div class="card-header">
+        <h5>My Products</h5>
+    </div>
+    <div class="card-body">        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td class="d-flex align-items-center gap-2">
+                        <img src="{{this.Image_Src}}" alt="product" width="50" height="50">
+                        <p>{{this.ProName}}</p>
+                    </td>
+                    <td>{{this.Price}}</td>
+                    <td>{{this.Quantity}}</td>
+                    <td>{{this.TotalPrice}}</td>
+                    <td>
+                        <button class="btn btn-danger">Remove</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -18,3 +18,57 @@ body{
 .me-2 {
     margin-right: .5rem!important;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.navbar-wrap{
+    background-color: #4D77FF;
+}
+
+.navbar-brand{
+    font-size: 2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    transition: all 0.4s;
+}
+
+.navbar-brand:hover{
+    color:#052B40;
+    transition: all 0.4s;
+}
+
+.nav-item-space{
+    margin: 0 10px;
+}
+
+.nav-link{
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    transition: all 0.4s;
+}
+
+.nav-link:hover{
+    color:#052B40;
+    transition: all 0.4s;
+}
+
+.log-in-btn{
+    padding: 5px 20px;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.circle-btn{
+    height: 50px;
+    width: 50px;
+    border: 0;
+    border-radius: 50%;
+    vertical-align: middle;
+    background-color: #FFFFFF;
+}

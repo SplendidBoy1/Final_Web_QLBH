@@ -1,11 +1,12 @@
 body {
-    font-family: 'Roboto Condensed', sans-serif;
+    /* font-family: 'Roboto Condensed', sans-serif;
     background-color: #f5f5f5;
-    display: flex; /* Enables Flexbox on the body */
-    justify-content: center; /* Horizontally centers the content */
-    align-items: center; /* Vertically centers the content */
-    min-height: 100vh; /* Ensures the body takes up full height of the viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
+    flex-direction: column; */
 }
 
 .main-section {

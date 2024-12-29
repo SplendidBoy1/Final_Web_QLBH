@@ -216,5 +216,32 @@ module.exports = (schema) => {
             `;
             return await db.oneOrNone(query, [categoryId]);
         },
+
+        addToCart: async (productId, userId, quantity) => {
+            const query = `
+                INSERT INTO "${schema}"."Cart" ("ProID", "ID_User", "Quantity")
+                VALUES ($1, $2, $3)
+                RETURNING *
+            `;
+            return await db.one(query, [productId, userId, quantity]);
+        },        
+
+        updateQuantityCart: async (productId, userId, quantity) => {
+            const query = `
+                UPDATE "${schema}"."Cart"
+                SET "Quantity" = $1
+                WHERE "ProID" = $2 AND "ID_User" = $3
+                RETURNING *
+            `;
+            return await db.one(query, [quantity, productId, userId]);
+        },
+
+        takeCart: async (userId) => {
+            const query = `
+                SELECT * FROM "${schema}"."Cart"
+                WHERE "ID_User" = $1
+            `;
+            return await db.any(query, [userId]);
+        }
     };
 };

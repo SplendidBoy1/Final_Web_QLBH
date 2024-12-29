@@ -6,6 +6,7 @@
             <a href="{{#ifCond CatID 10}}/products{{else}}/products?category={{CatID}}{{/ifCond}}">
                 <img src="images/categories/{{this.CatName}}.png" alt="{{this.CatName}}" class="rounded-circle">
             </a>
+            <p>{{this.CatName}}</p>
         </div>
         {{/each}}
     </div>

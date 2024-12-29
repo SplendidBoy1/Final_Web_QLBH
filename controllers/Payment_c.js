@@ -7,16 +7,16 @@ const db_pay = require('../models/payment_db.js');
 const scheme = process.env.DBSCHEMA
 // import db_md from '../models/db.js'
 
-data = [
-    {
-        id: 1,
-        total: 100 
-    }
-]
+// data = [
+//     {
+//         id: 1,
+//         total: 100 
+//     }
+// ]
 
 const df = {
     async Paying(req, res){
-        console.log("REQQQQQ")
+        // console.log("REQQQQQ")
         // console.log(req.body)
         const iduser = req.body.id;
         const total = req.body.total;
@@ -25,12 +25,12 @@ const df = {
         res.json({accessToken: accessToken});
     },
     authenticateToken(req, res, next){
-        console.log(req.headers)
+        // console.log(req.headers)
         const authHeader = req.headers['authorization']
-        console.log(authHeader)
+        // console.log(authHeader)
         const token = authHeader && authHeader.split(' ')[1]
-        console.log(token)
-        console.log("hihi")
+        // console.log(token)
+        // console.log("hihi")
         if (token == null)return res.sendStatus(401);
     
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -39,9 +39,26 @@ const df = {
             next();
         })
     },
-    Take_account(req, res){
-
-        res.json(data.filter(da => da.id === req.user.id))
+    async Take_account(req, res){
+        const data = await db_pay.find_all("Payment")
+        // console.log(data)
+        data.forEach(async da => {
+            const user = await req.user;
+            if (da.AccountID === user.id){
+                const user_admin = await db_pay.find_acc("Payment", "AccountID", 1)
+                let balance_admin = parseInt(user_admin.Account_Balance) + user.total
+                let balance_cus = parseInt(da.Account_Balance) - user.total
+                await db_pay.update_balance("Payment", 1, balance_admin);
+                await db_pay.update_balance("Payment", da.AccountID, balance_cus);
+                da.Account_Balance = balance_cus
+                // console.log(da)
+                res.json(da)
+            }
+        })
+        // res.json(data.filter(async (da) => {
+        //     // console.log(da)
+        //     // console.log(req.user)
+        //     }))
     },
     async Register_account(req, res){
         const id = req.body.id;

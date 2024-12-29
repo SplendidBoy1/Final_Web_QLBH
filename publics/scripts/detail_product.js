@@ -16,6 +16,12 @@ $('#checkout_product').click(e => {
     })
 })
 
-$('#add_cart').click(e => {
-    console.log("HHHHHHH")
-})
+$("#add-cart").click(function() {
+    $.ajax({
+        url: $(this).attr("href"),
+        type: "POST",
+        success: function(response) {
+            alert(response);
+        }
+    });
+});

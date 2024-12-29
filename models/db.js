@@ -41,6 +41,7 @@ module.exports = schema => {
         add: async (tableName, entity) => {
             const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });
             let sql = pgp.helpers.insert(entity, null, table);
+            console.log(sql)
             return db.none(sql);
         },
 

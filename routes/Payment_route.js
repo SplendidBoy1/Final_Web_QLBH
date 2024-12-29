@@ -16,7 +16,7 @@ router.get('/account_balance', controller_1.authenticateToken, controller_1.Take
 
 router.post('/paying_order', controller_1.Paying)
 
-router.register('/register_account', controller_1.Register_account)
+router.post('/register_account', controller_1.Register_account)
 
 // router.get('/edit_page', controller_1.to_edit_page);
 

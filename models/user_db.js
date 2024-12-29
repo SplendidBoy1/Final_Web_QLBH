@@ -22,7 +22,7 @@ module.exports = (schema) => {
         },
 
         add: async (tbName, entity) => {
-            const table = getTableName(tbName);
+            const table = new pgp.helpers.TableName({ table: tbName, schema: this.schema });
             const query = pgp.helpers.insert(entity, null, table) + ` RETURNING *`;
             return await db.one(query);
         },

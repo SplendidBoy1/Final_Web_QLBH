@@ -18,7 +18,7 @@ const df = {
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
-            if (exist_user !== undefined) {
+            if (exist_user !== null) {
                 if (exist_user.ID === req.body.id){
                     const rs = user_db.update_User("Users", req.body)
                     res.json({flag: true})
@@ -121,7 +121,7 @@ const df = {
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
-            if (exist_user !== undefined) {
+            if (exist_user !== null) {
                 console.log("The email is already existed in the database!")
                 res.json({flag: false}) 
                 return 
@@ -134,7 +134,7 @@ const df = {
             // console.log(req.body)
             //console.log(Date.now().)
             const user = {
-                ID: parseInt(id.ID)+1,
+                ID: id+1,
                 Username: req.body.username,
                 Email: req.body.email,
                 Password: hassedPass,
@@ -233,7 +233,7 @@ const df = {
             console.log(exist_cat)
             console.log("IDDDD")
             console.log("zzz")
-            if (exist_cat !== undefined) {
+            if (exist_cat !== null) {
                 console.log("The category is already existed in the database!")
                 res.json({flag: false}) 
                 return 
@@ -246,7 +246,7 @@ const df = {
             // console.log(req.body)
             //console.log(Date.now().)
             const cat = {
-                CatID: parseInt(id.CatID)+1,
+                CatID: id+1,
                 CatName: req.body.catname,
             }
             //console.log(user)
@@ -397,7 +397,7 @@ const df = {
             const id = await user_db.highest_id("Products", "ProID")
             // console.log(image_src)
             const pro = {
-                ProID: parseInt(id.ProID)+1,
+                ProID: id+1,
                 ProName: req.body.productname,
                 FullDes: req.body.describe,
                 Image_Src: image_src,

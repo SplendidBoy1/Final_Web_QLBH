@@ -35,7 +35,7 @@ const df = {
             // console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
-            if (exist_user !== undefined) {
+            if (exist_user !== null) {
                 console.log("The email is already existed in the database!")
                 res.json({flag: false}) 
                 return 
@@ -48,7 +48,7 @@ const df = {
             // console.log(req.body)
             //console.log(Date.now().)
             const user = {
-                ID: parseInt(id.ID)+1,
+                ID: id+1,
                 Username: req.body.username,
                 Email: req.body.email,
                 Password: hassedPass,

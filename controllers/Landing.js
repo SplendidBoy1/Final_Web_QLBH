@@ -15,12 +15,11 @@ const df = {
         if (!req.isAuthenticated()){
             return res.redirect('/login')
         }
-        console.log("HEHEHEHE")
+        
         const categories = await category_db.all();        
         const top30Rating = await product_db.top30Rating();
-        console.log(categories)
-        console.log(top30Rating)
+        
         return res.render('layouts/landing', {categories: categories, products: top30Rating});
-    }
+    }    
 }
 module.exports = df

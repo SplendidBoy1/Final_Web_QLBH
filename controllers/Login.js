@@ -32,7 +32,7 @@ const df = {
         try{
             //console.log(req.body)
             const exist_user = await user_db.findEmail('Users', 'Email', req.body.email)
-            // console.log(exist_user)
+            console.log(exist_user)
             // console.log("IDDDD")
             // console.log("zzz")
             if (exist_user !== null) {

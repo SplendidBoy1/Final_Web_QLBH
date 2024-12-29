@@ -1,6 +1,6 @@
 
 GET https://localhost:4000/account_balance
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidG90YWwiOjMwMDAwMCwiaWF0IjoxNzM1Mzk4MzA5fQ.4jfe8YkhW5NlAnD9bfSn-kYVp1ddjTuXSZt5GrQkxX0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidG90YWwiOjMwMDAwMCwiaWF0IjoxNzM1NDg3NzI4fQ.BbCGNRo0F8gLwgPsCfSCu2wrzbYZvh3R8T5na9iG9TQ
 
 
 

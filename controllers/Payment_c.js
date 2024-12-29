@@ -16,6 +16,8 @@ data = [
 
 const df = {
     async Paying(req, res){
+        console.log("REQQQQQ")
+        // console.log(req.body)
         const iduser = req.body.id;
         const total = req.body.total;
         const user = {id: iduser, total: total};
@@ -28,6 +30,7 @@ const df = {
         console.log(authHeader)
         const token = authHeader && authHeader.split(' ')[1]
         console.log(token)
+        console.log("hihi")
         if (token == null)return res.sendStatus(401);
     
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {

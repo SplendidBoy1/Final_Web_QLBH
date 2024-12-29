@@ -212,6 +212,6 @@ module.exports = (schema) => {
                 WHERE "CatID" = $1
             `;
             return await db.oneOrNone(query, [categoryId]);
-        },
+        },        
     };
 };

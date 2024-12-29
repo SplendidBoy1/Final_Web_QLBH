@@ -78,6 +78,62 @@ const ProductController = {
             console.error(error);
             res.status(500).send('Internal Server Error');
         }
+    },
+
+    async addToCart(req, res) {
+        const { id } = req.params;
+        
+        // Add to session
+        if (!req.session.cart) {
+            req.session.cart = [];
+        }
+
+        const userId = req.session.passport.user;
+        for (let i = 0; i < req.session.cart.length; i++) {
+            if (req.session.cart[i].UserId === userId && req.session.cart[i].ProductID === id) {
+                req.session.cart[i].Quantity++;
+                return res.send('Added to cart');
+            }
+        }
+
+        req.session.cart.push({
+            UserId: userId,
+            ProductID: id,
+            Quantity: 1,
+        });
+
+        res.send('Added to cart');        
+    },
+
+    async renderCart(req, res) {
+        if (!req.isAuthenticated()){
+            return res.redirect('/login')
+        }
+
+        if (!req.session.cart) {
+            req.session.cart = [];
+        }
+
+        const userId = req.session.passport.user;
+        const cartItems = req.session.cart.filter(item => item.UserId === userId);
+
+        try {
+            const products = [];
+            for (let i = 0; i < cartItems.length; i++) {
+                const product = await user_db.find_product_by_id(cartItems[i].ProductID);
+                if (product) {
+                    product.Quantity = cartItems[i].Quantity;
+                    products.push(product);
+                }
+            }
+
+            res.render('layouts/cart', { products });
+        } 
+        
+        catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
     }
 };
 

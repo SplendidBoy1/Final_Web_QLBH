@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header }}
+    <title>Product Listing</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/product_list.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container bootdey">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-md-3">
+                <section class="panel">
+                    <div class="panel-body">
+                        <form method="GET" action="/products">
+                            <input type="text" name="search" placeholder="Keyword Search" value="{{search}}" class="form-control" />
+                        </form>
+                    </div>
+                </section>
+                <section class="panel">
+                    <header class="panel-heading">Category</header>
+                    <div class="panel-body">
+                        <ul class="nav prod-cat">
+                            {{#each categories}}
+                        <li>
+                            {{#ifCond CatID 10}}
+                                <!-- Redirect to /products for "All" category -->
+                                <a href="/products" class="{{#ifCond ../category CatID}}active{{/ifCond}}">
+                                    <i class="fa fa-angle-right"></i> {{CatName}}
+                                </a>
+                            {{else}}
+                                <!-- Normal behavior for other categories -->
+                                <a href="/products?category={{CatID}}" class="{{#ifCond ../category CatID}}active{{/ifCond}}">
+                                    <i class="fa fa-angle-right"></i> {{CatName}}
+                                </a>
+                            {{/ifCond}}
+                        </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Product List -->
+            <div class="col-md-9">
+               <!-- Pagination -->
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="pagination-container text-center">
+                            <ul class="pagination pagination-sm pro-page-list">
+                                {{#if pagination}}
+                                    {{#each pagination}}
+                                        {{#ifCond this '...'}}
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        {{else}}
+                                            <li class="page-item {{#ifCond ../currentPage this}}active{{/ifCond}}">
+                                                <a class="page-link" href="/products?page={{this}}&category={{../category}}&search={{../search}}">
+                                                    {{this}}
+                                                </a>
+                                            </li>
+                                        {{/ifCond}}
+                                    {{/each}}
+                                {{/if}}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+
+                <div class="row product-list">
+                    {{#each products}}
+                    <div class="col-md-4">
+                        <section class="panel">
+                            <div class="pro-img-box">
+                                <img src="{{Image_Src}}" alt="{{ProName}}" />
+                                {{!-- Add to cart function here or maybe in the detail page --}}
+                                {{!-- <a href="/products/{{ProID}}" class="adtocart">
+                                    <i class="fa fa-shopping-cart"></i> --}}
+                                </a>
+                            </div>
+                            <div class="panel-body text-center">
+                                <h4>
+                                    <a href="/products/{{ProID}}" class="pro-title">{{ProName}}</a>
+                                </h4>
+                                <p class="price">{{Price}} VND</p>
+                            </div>
+                        </section>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

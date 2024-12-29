@@ -13,6 +13,7 @@ const multer = require('multer');
 const Login = require('./routes/Login_route.js')
 const Admin = require('./routes/Admin_route.js')
 const Landing = require('./routes/Landing_route.js');
+const ProductRoutes = require('./routes/Product_route');
 
 //Profile
 const Profile = require('./routes/Profile_route.js');
@@ -115,7 +116,10 @@ initializePassport(passport);
 
 // console.log(initializePassport.name)
 
-
+//Helper function to handle the selected state in the dropdown.
+hbs.registerHelper('ifCond', function (v1, v2, options) {
+  return v1 === v2 ? options.fn(this) : options.inverse(this);
+});
 
 //app.use(router_1)
 
@@ -144,6 +148,7 @@ app.use((err, req, res, next) => {
 });
 //Profile
 app.use(Profile);
+app.use(ProductRoutes);
 
 app.all('*', (req, res) => {
   

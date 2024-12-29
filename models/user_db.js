@@ -18,11 +18,15 @@ module.exports = (schema) => {
     return {
         findEmail: async (tbName, type, data) => {
             const query = `SELECT * FROM ${getTableName(tbName)} WHERE "${type}" = $1`;
+            // console.log(query)
             return await db.oneOrNone(query, [data]);
         },
 
         add: async (tbName, entity) => {
-            const table = getTableName(tbName);
+            //const table = getTableName(tbName);
+            const table = new pgp.helpers.TableName({
+                table: tbName, schema: schema
+            });
             const query = pgp.helpers.insert(entity, null, table) + ` RETURNING *`;
             return await db.one(query);
         },
@@ -38,7 +42,9 @@ module.exports = (schema) => {
                 SELECT MAX("${type}") AS max_id
                 FROM ${getTableName(tbName)}
             `;
+            console.log(query)
             const result = await db.one(query);
+            console.log(result)
             return result.max_id || 0;
         },
         find_join: async (tbName_1, tbName_2, join_1, join_2, where) => {

@@ -1,8 +1,26 @@
 // In controllers/ProductController.js
+// const { default: axios } = require('axios');
+// const https = require('https');
+const fs = require('fs')
+const { param } = require('../routes/Login_route.js');
+
+const axios = require('axios');
+const https = require('https');
+
+// const cert = fs.readFileSync('sslcert/cert.pem');
+
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
+// const agent = new https.Agent({
+//     rejectUnauthorized: false,
+//   })
+
 const user_db = require('../models/user_db.js')(process.env.DBSCHEMA);
 
 const ProductController = {
     async renderProductPage(req, res) {
+        if (!req.isAuthenticated()) return res.redirect('/login');
         const { category, search, page = 1 } = req.query;
         const limit = 6; // 6 products per page
         const maxPageLinks = 6; // Maximum number of page links to display
@@ -50,6 +68,7 @@ const ProductController = {
     },
 
     async renderProductDetails(req, res) {
+        if (!req.isAuthenticated()) return res.redirect('/login');
         const { id } = req.params;
     
         try {
@@ -78,6 +97,41 @@ const ProductController = {
             console.error(error);
             res.status(500).send('Internal Server Error');
         }
+    },
+    async checkoutProducts(req, res){
+        if (!req.isAuthenticated()) return res.redirect('/login');
+        const id_products = req.body.products;
+        const amounts = req.body.amounts;
+        console.log(id_products)
+        console.log(amounts)
+        const user = await req.user
+        console.log(user)
+        try{
+            const token = await axios.post('https://localhost:4000/paying_order',{id: user.ID, total:300000}, { httpsAgent: agent})
+            .then(response => {
+                console.log(response.data);
+                return response.data.accessToken
+            })
+            .catch(error => {
+                //console.error(error);
+                return error
+            });
+            const headers = { Authorization: `Bearer ${token}` };
+            const data =  await axios.get('https://localhost:4000/account_balance',{ httpsAgent: agent, headers}
+                ).then(response => {
+                    console.log(response.data);
+                    return response.data
+                }).catch (error => {
+                    console.error('Error fetching account balance:', error.message);
+                })
+            
+
+        }
+        catch{
+            return res.status(500).send({ error: err });
+        }
+
+        // console.log(rs)
     }
 };
 

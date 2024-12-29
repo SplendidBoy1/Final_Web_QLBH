@@ -1,5 +1,5 @@
 // In controllers/ProductController.js
-const user_db = require('../models/product_db');
+const user_db = require('../models/user_db.js')(process.env.DBSCHEMA);
 
 const ProductController = {
     async renderProductPage(req, res) {

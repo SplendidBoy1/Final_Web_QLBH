@@ -1,12 +1,15 @@
 {
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "concurrently": "^9.1.1",
     "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-hbs": "^2.5.0",
     "express-session": "^1.18.1",
     "flash": "^1.1.0",
+    "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
@@ -22,7 +25,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "concurrently \"node server.js\" \"node payment_server.js\""
   },
   "author": "lxdat21@clc.fitus.edu.vn",
   "license": "ISC",

@@ -10,8 +10,12 @@
 </head>
 
 <body>
+    {{> navigation}}
     {{!-- {{> navigation}} --}}
-    <div class="container bootdey">
+    <div class="container bootdey pt-4">
+        {{!-- <div class="row mb-4">
+            {{> navigation}}
+        </div> --}}
         <div class="row">
             <!-- Sidebar Filters -->
             <div class="col-md-3">
@@ -24,7 +28,7 @@
                     </div>
                 </section>
                 <section class="panel">
-                    <header class="panel-heading">Category</header>
+                    <header class="panel-heading px-1 py-3">Category</header>
                     <div class="panel-body">
                         <ul class="nav prod-cat">
                             {{#each categories}}
@@ -78,20 +82,21 @@
                 <div class="row product-list">
                     {{#each products}}
                     <div class="col-md-4">
-                        <section class="panel">
-                            <div class="pro-img-box">
-                                <img src="{{Image_Src}}" alt="{{ProName}}" />
+                        <section class="panel ">
+                            
+                            <div class="card mt-5" >
+                                <img src="{{Image_Src}}" alt="{{ProName}}" class="card-img-top" style="max-height:300px;"/>
                                 {{!-- Add to cart function here or maybe in the detail page --}}
                                 {{!-- <a href="/products/{{ProID}}" class="adtocart">
                                     <i class="fa fa-shopping-cart"></i> --}}
-                                </a>
+                                <div class="text-center card-body" style="height:150px;">
+                                    <h4>
+                                        <a href="/products/{{ProID}}" class="pro-title card-title">{{ProName}}</a>
+                                    </h4>
+                                    <p class="card-text">{{Price}} VND</p>
+                                </div>
                             </div>
-                            <div class="panel-body text-center">
-                                <h4>
-                                    <a href="/products/{{ProID}}" class="pro-title">{{ProName}}</a>
-                                </h4>
-                                <p class="price">{{Price}} VND</p>
-                            </div>
+                            
                         </section>
                     </div>
                     {{/each}}

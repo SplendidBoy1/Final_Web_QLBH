@@ -81,28 +81,36 @@ const ProductController = {
     },
 
     async addToCart(req, res) {
-        const { id } = req.params;
-        
+        let id = req.params.id;
+        id = parseInt(id);
+        // console.log(id);
+
         // Add to session
         if (!req.session.cart) {
             req.session.cart = [];
         }
 
-        const userId = req.session.passport.user;
-        for (let i = 0; i < req.session.cart.length; i++) {
-            if (req.session.cart[i].UserId === userId && req.session.cart[i].ProductID === id) {
-                req.session.cart[i].Quantity++;
-                return res.send('Added to cart');
-            }
+        const userEmail = req.session.passport.user;
+        const user = await user_db.findEmail('Users', 'Email', userEmail);
+        const userId = user.ID;
+        
+        let cartItem = req.session.cart.find(item => item.ID_User === userId && item.ProID === id);
+        if (cartItem) {
+            cartItem.Quantity++;
+            const rs = await user_db.updateQuantityCart(id, userId, cartItem.Quantity);
+            return res.send('Added to cart');
         }
+        else {
+            req.session.cart.push({
+                ID_User: userId,
+                ProID: id,
+                Quantity: 1,
+            });
 
-        req.session.cart.push({
-            UserId: userId,
-            ProductID: id,
-            Quantity: 1,
-        });
+            const rs = await user_db.addToCart(id, userId, 1);
 
-        res.send('Added to cart');        
+            res.send('Added to cart');        
+        }
     },
 
     async renderCart(req, res) {
@@ -114,18 +122,26 @@ const ProductController = {
             req.session.cart = [];
         }
 
-        const userId = req.session.passport.user;
-        const cartItems = req.session.cart.filter(item => item.UserId === userId);
+        const userEmail = req.session.passport.user;
+        const user = await user_db.findEmail('Users', 'Email', userEmail);
+        const userId = user.ID;
+
+        let cartItems = req.session.cart.filter(item => item.ID_User === userId);
+
+        // console.log(cartItems);
 
         try {
             const products = [];
             for (let i = 0; i < cartItems.length; i++) {
-                const product = await user_db.find_product_by_id(cartItems[i].ProductID);
+                const product = await user_db.find_product_by_id(cartItems[i].ProID);
                 if (product) {
                     product.Quantity = cartItems[i].Quantity;
+                    product.TotalPrice = product.Price * product.Quantity;
                     products.push(product);
                 }
             }
+
+            // console.log(products);
 
             res.render('layouts/cart', { products });
         } 

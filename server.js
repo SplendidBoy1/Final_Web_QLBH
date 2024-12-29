@@ -7,6 +7,7 @@ const hbs = require('express-hbs')
 const passport = require('passport')
 const url = require('url')
 const initializePassport = require('./middleware/Autheticate.js')
+const RegisterToSystem = require('./middleware/Register_PaymentSystem.js')
 // const bodyParser = require('body-parser');
 const bodyParser = require('body-parser')
 const multer = require('multer');
@@ -103,7 +104,7 @@ app.engine('hbs', hbs.express4({
   partialsDir: __dirname + '/views/partials'
 }));
 
-
+RegisterToSystem()
 
 app.set('view engine', 'hbs')
 

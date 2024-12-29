@@ -105,7 +105,7 @@ const ProductController = {
         console.log(id_products)
         console.log(amounts)
         const user = await req.user
-        console.log(user)
+        // console.log(user)
         try{
             const token = await axios.post('https://localhost:4000/paying_order',{id: user.ID, total:300000}, { httpsAgent: agent})
             .then(response => {

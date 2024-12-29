@@ -45,7 +45,16 @@ const df = {
     },
     async Register_account(req, res){
         const id = req.body.id;
+        // console.log(id)
         try{
+
+            const check_exist = await db_pay.find_acc("Payment", "AccountID", id)
+            // console.log("HAHAHA")
+            // console.log(check_exist)
+            if (check_exist !== undefined){
+                return res.json({flag: false});
+            }
+            // console.log("HUHUHU")
             const new_acc = {
                 "AccountID" : id,
                 "Account_Balance": 0

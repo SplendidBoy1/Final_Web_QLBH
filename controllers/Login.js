@@ -95,6 +95,8 @@ const df = {
     },
     async Render_admin(req, res){
         if (!req.isAuthenticated())return res.redirect('/login')
+        const user = await req.user;
+        if (user.Role_ID == 2)return res.redirect('/landing')
         //console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq")
         const users = await user_db.find_all("Users", "ID", "ASC")
         const categories = await user_db.find_all("Categories", "CatID", "ASC")

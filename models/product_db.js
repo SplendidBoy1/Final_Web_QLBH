@@ -6,4 +6,9 @@ module.exports = {
         const rs = await db.someByOrder('Products', 'ProID', 'DESC', 30);
         return rs;
     },
+
+    one: async (table, field, id) => {
+        const rs = await db.one(table, field, id);
+        return rs;
+    },
 }

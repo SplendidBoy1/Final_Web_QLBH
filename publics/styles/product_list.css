@@ -1,0 +1,141 @@
+body {
+    margin-top: 20px;
+    background: #f1f2f7;
+}
+
+.panel {
+    border: none;
+    box-shadow: none;
+}
+
+.panel-heading {
+    border-color: #eff2f7;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.panel-title {
+    color: #2A3542;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.prod-cat li ul {
+    margin-left: 30px;
+}
+
+.prod-cat li ul li a:hover,
+.prod-cat li a:hover,
+.prod-cat li a.active {
+    color: #ff7261;
+}
+
+.product-list img {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+}
+
+.adtocart {
+    background: #fc5959;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    position: absolute;
+    left: 45%;
+    bottom: -25px;
+    text-align: center;
+    border: 3px solid #fff;
+}
+
+.pro-title {
+    color: #5A5A5A;
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.price {
+    color: #fc5959;
+    font-size: 15px;
+}
+
+/* Vertical Category List */
+.prod-cat {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.prod-cat li {
+    margin-bottom: 10px;
+}
+
+.prod-cat li a {
+    display: block;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    color: #3b3b3b;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.prod-cat li a:hover,
+.prod-cat li a.active {
+    background: #ff7261;
+    color: #fff;
+    border-color: #ff7261;
+}
+
+/* pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff7261;
+    border-color: #ff7261;
+    color: #fff;
+}
+
+.pagination .page-item .page-link {
+    color: #3b3b3b;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin: 0 2px;
+    padding: 8px 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #ff7261;
+    color: #fff;
+}
+
+
+/* Style for the search bar */
+/* .panel-body input[type="text"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.panel-body input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.panel-body {
+    margin-bottom: 15px;
+} */

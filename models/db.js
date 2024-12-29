@@ -56,7 +56,7 @@ module.exports = schema => {
         },
 
         allBy: async (tableName, field, value) => {
-            const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });
+            const table = new pgp.helpers.TableName({ table: tableName, schema: this.schema });                        
             const rs = await db.any(`SELECT * FROM $1 WHERE "${field}"=$2`, [table, value]);
             return rs;
         },
@@ -83,5 +83,12 @@ module.exports = schema => {
             }
             return rs[0]
         },
+        numberOrderPerYear: async (year, userId) => {
+            const rs = await db.any(`SELECT EXTRACT(MONTH FROM "OrderDate") as "OrderMonth", 
+		                            TO_CHAR("OrderDate", 'Mon') as mon, 
+		                            COUNT("OrderID") from public."Orders" WHERE EXTRACT(YEAR FROM "OrderDate") = ${year}  AND "ID_User" = ${userId}
+		                            group by 1, 2 ORDER BY "OrderMonth"`);
+            return rs;
+        }
     };
 }

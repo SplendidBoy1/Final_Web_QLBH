@@ -41,5 +41,11 @@ module.exports = {
     delete_cart_where: async (tbName, type, data) => {
         const rs = await db.delete(tbName, type, data);
         return rs;
+    },
+    remove_cart: async(tbName, type_1, type_2, data_1, data_2) => {
+        const query = `DELETE  FROM "${schema}"."${tbName}" WHERE "${type_1}" = '${data_1}' AND "${type_2}" = '${data_2}';`
+        console.log(query)
+        const rs = await db.any(query);
+        return rs
     }
 }

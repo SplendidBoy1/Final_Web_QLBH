@@ -275,6 +275,21 @@ const ProductController = {
             return res.status(500).send('Internal Server Error');
         }
         
+    },
+    async removePro(req, res){
+        console.log(req.body)
+        const id = req.body.id
+        const user = await req.user
+        try{
+            const rs = order_db.remove_cart("Cart", "ID_User", "ProID", user.ID, id)
+            console.log(req.session.cart)
+            req.session.cart = req.session.cart.filter(a => a.ID_User != user.id && a.ProID != id)
+            console.log(req.session.cart)
+            return res.json({flag: true})
+        }
+        catch{
+            return res.status(500).send('Internal Server Error');
+        }
     }
 };
 

@@ -11,4 +11,6 @@ router.post('/cart/add/:id', ProductController.addToCart);
 
 router.post('/checkout', ProductController.checkoutProducts)
 router.get('/delete_cart', ProductController.deleteCart)
+
+router.post('/remove_pro_Incart', ProductController.removePro)
 module.exports = router;

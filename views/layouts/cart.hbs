@@ -72,6 +72,25 @@
                 }
             })
         })
+
+        $(".remove_btn").click(function(e){
+            const id_pro = e.currentTarget.value
+            console.log(e.currentTarget.value)
+
+            $.ajax({
+                url: 'http://localhost:21239/remove_pro_Incart',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({id: id_pro }),
+                success: (res) => {
+                    window.location.reload();
+                    console.log(res)
+                },
+                error: (xhr, status, error) => {
+                    console.error('Error:', error);
+                }
+            })
+        })  
         
     </script>
 

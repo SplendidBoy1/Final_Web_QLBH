@@ -1,5 +1,15 @@
 const bcrypt = require('bcrypt');
 
+
+const axios = require('axios');
+const https = require('https');
+
+// const cert = fs.readFileSync('sslcert/cert.pem');
+
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
+
 // const passport = require('passport')
 
 // const users = require('../models/db.js');
@@ -58,6 +68,22 @@ const df = {
             }
             //console.log(user)
             user_db.add('Users', user)
+            const rs = await axios.post('https://localhost:4000/register_account',{id: id + 1}, { httpsAgent: agent})
+                .then(response => {
+                    // console.log(response.data);
+                    return response.data.flag
+                })
+                .catch(error => {
+                    //console.error(error);
+                    return error
+                })
+            // console.log(rs)
+            if (rs == true){
+                console.log("Register success");
+            }
+            else{
+                console.log("Account has existed");
+            }
             //console.log("qqqqqqq")
             res.json({flag: true})
             return

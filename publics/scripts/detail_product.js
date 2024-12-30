@@ -7,6 +7,7 @@ $('#checkout_product').click(e => {
         contentType: 'application/json',
         data: JSON.stringify({products: [$('#checkout_product').val()], amounts: [1]}),
         success: (res) => {
+            alert("Buy product success");
             console.log(res)
             
         },

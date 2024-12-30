@@ -56,6 +56,9 @@
                         method: 'GET',
                         contentType: 'application/json',
                         success: (res) => {
+                            if (res.flag === true){
+                                window.location.reload();
+                            }
                             console.log(res)
                         },
                         error: (xhr, status, error) => {
@@ -71,5 +74,7 @@
         })
         
     </script>
+
+    {{> footer}}
 </body>
 </html>

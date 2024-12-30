@@ -50,6 +50,21 @@ const df = {
                 let balance_cus = parseInt(da.Account_Balance) - user.total
                 await db_pay.update_balance("Payment", 1, balance_admin);
                 await db_pay.update_balance("Payment", da.AccountID, balance_cus);
+                const highest_id = await db_pay.find_idhighest("Payment History", "ID")
+                var date = new Date(Date.now());
+                var dd_mm_yyyy = date.toLocaleDateString();
+                var yyyy_mm_dd = dd_mm_yyyy.replace(/(\d+)\/(\d+)\/(\d+)/g, "$3-$1-$2");
+                // console.log(date.toLocaleTimeString())
+                // console.log(yyyy_mm_dd)
+                var time = date.toLocaleTimeString().replace(/AM|PM/,'') 
+                const history = {
+                    "ID": highest_id + 1,
+                    "AccountID": da.AccountID,
+                    "Send_total": user.total,
+                    "PaymentDate": yyyy_mm_dd + " " + time
+                }
+                await db_pay.add_account("Payment History", history);
+
                 da.Account_Balance = balance_cus
                 // console.log(da)
                 res.json(da)

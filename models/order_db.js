@@ -37,5 +37,9 @@ module.exports = {
             const result = await db.any(query);
             console.log(result)
             return result[0].max_id || 0;
+    },
+    delete_cart_where: async (tbName, type, data) => {
+        const rs = await db.delete(tbName, type, data);
+        return rs;
     }
 }

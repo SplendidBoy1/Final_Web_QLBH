@@ -263,8 +263,12 @@ const ProductController = {
         }
     },
     async deleteCart(req, res){
+        const user = await req.user
         console.log(await req.user)
+        console.log(req.session.cart)
         try{
+            const rs = order_db.delete_cart_where("Cart", "ID_User", user.ID)
+            req.session.cart = []
             return res.json({flag: true})
         }
         catch{
